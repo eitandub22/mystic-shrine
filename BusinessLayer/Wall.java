@@ -1,8 +1,8 @@
 package BusinessLayer;
 
 public class Wall extends Tile{
-    public Wall(){
-        super('#');
+    public Wall(int x, int y){
+        super('#', new Position(x,y));
     }
 
     @Override

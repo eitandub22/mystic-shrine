@@ -2,8 +2,8 @@ package BusinessLayer;
 
 public class Empty extends Tile{
 
-    public Empty(){
-        super('.');
+    public Empty(int x, int y){
+        super('.', new Position(x,y));
     }
 
     @Override
