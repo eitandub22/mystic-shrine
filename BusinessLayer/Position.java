@@ -9,8 +9,7 @@ public class Position implements Comparable<Position>{
     }
     @Override
     public int compareTo(Position o) {
-        /*if(this.x - o.x != 0) return this.x - o.x;
-        return this.y - o.y;*/
-        return -1;
+        if(this.y - o.y != 0) return this.y - o.y;
+        return this.x - o.x;
     }
 }
