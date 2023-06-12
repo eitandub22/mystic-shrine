@@ -6,20 +6,18 @@ import java.util.stream.Collectors;
 public class Board {
     private int width;
     private int height;
-    private HashMap<Position, Tile> tiles;
+    private FindTreeSet<Tile> tiles;
 
     public Board(int width, int height){
-        tiles = new HashMap<>();
+        tiles = new FindTreeSet<>(new TilePosComperator());
         this.height = height;
         this.width = width;
     }
 
     public Tile get(int x, int y) throws Exception {
-        for(Position p : tiles.keySet()){
-            if (p.equals(new Position(x,y))){
-                return tiles.get(p);
-            }
-        }
+        Empty demiTile = new Empty(x, y);
+        Tile toFind = this.tiles.find(demiTile);
+        if(demiTile.getPosition().compareTo(toFind.getPosition()) == 0) return toFind;
         throw new Exception("Can't get tile with coordinates: (" + x + "," + y + ")");
     }
 
@@ -31,7 +29,7 @@ public class Board {
 
     @Override
     public String toString() {
-        tiles = (HashMap<Position, Tile>) tiles.values().stream().sorted().collect(Collectors.toList());
+        tiles = (FindTreeSet<Tile>) tiles.stream().sorted().collect(Collectors.toList());
         // TODO: Implement me
         return "";
     }

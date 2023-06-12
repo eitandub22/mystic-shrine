@@ -16,4 +16,13 @@ public class Position implements Comparable<Position>{
         if(this.y - o.y != 0) return this.y - o.y;
         return this.x - o.x;
     }
+
+    public int getX()
+    {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
 }
