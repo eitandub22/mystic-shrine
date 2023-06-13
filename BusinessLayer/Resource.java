@@ -26,7 +26,13 @@ public class Resource {
         this.currAmount = Math.max(0, this.currAmount - toTake);
     }
 
+    public int getPool()
+    {
+        return this.pool;
+    }
 
-
-
+    public int getCurrAmount()
+    {
+        return currAmount;
+    }
 }

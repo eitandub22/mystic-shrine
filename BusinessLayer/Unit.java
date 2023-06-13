@@ -7,7 +7,7 @@ public abstract class Unit extends Tile {
 	private String name;
     private Resource hp;
     private int attack;
-    private int defence;
+    private int defense;
     private MessageCallback msgCallbck;
 
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
@@ -16,7 +16,7 @@ public abstract class Unit extends Tile {
         this.hp = new Resource(healthCapacity);
         this.hp.addAmount(healthCapacity);
         this.attack = attack;
-        this.defence = defense;
+        this.defense = defense;
     }
 
     protected void initialize(Position position, MessageCallback messageCallback){
@@ -62,5 +62,26 @@ public abstract class Unit extends Tile {
 
     public String describe() {
         return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
+    }
+
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getHealth()
+    {
+        return hp.getCurrAmount();
+    }
+
+    public int getAttack()
+    {
+        return attack;
+    }
+
+    public int getDefense()
+    {
+        return defense;
     }
 }
