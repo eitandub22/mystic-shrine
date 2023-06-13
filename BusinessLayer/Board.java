@@ -21,9 +21,8 @@ public class Board {
         throw new Exception("Can't get tile with coordinates: (" + x + "," + y + ")");
     }
 
-/*    public void remove(Enemy e) {
-        tiles.remove(e);
-        Position p = e.getPosition();
+/*    public void remove(Position p) {
+        tiles.remove(new Empty(p));
         tiles.add(new Empty(p));
     }*/
 
