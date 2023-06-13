@@ -1,6 +1,6 @@
 package BusinessLayer;
 
-public abstract class Tile implements Visited{
+public abstract class Tile implements Visited, Visitor{
     protected char tile;
     protected Position position;
 

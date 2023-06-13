@@ -1,31 +1,40 @@
 package BusinessLayer;
 
 import BusinessLayer.Resource;
+import FrontEnd.MessageCallback;
 
 public abstract class Unit extends Tile {
 	private String name;
-    private char tle;
     private Resource hp;
     private int attack;
     private int defence;
+    private MessageCallback msgCallbck;
 
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
         super(tile);
         this.name = name;
-        this.hp = 
+        this.hp = new Resource(healthCapacity);
+        this.hp.addAmount(healthCapacity);
+        this.attack = attack;
+        this.defence = defense;
     }
 
     protected void initialize(Position position, MessageCallback messageCallback){
-        ...
+        this.position = position;
+        this.msgCallbck = messageCallback;
     }
 	
     protected int attack(){
-		...
+		return 0;
     }
 
-    public int defend(){
-        ...
+    public int rollAttack(){
+        return 0;
     }
+    public int rollDefence(){
+        return 0;
+    }
+
 
 	// Should be automatically called once the unit finishes its turn
     public abstract void processStep();
@@ -35,11 +44,11 @@ public abstract class Unit extends Tile {
 
 	// This unit attempts to interact with another tile.
     public void interact(Tile tile){
-		...
+		tile.accept(this);
     }
 
     public void visit(Empty e){
-		...
+		//
     }
 
     public abstract void visit(Player p);
@@ -47,7 +56,7 @@ public abstract class Unit extends Tile {
 
 	// Combat against another unit.
     protected void battle(Unit u){
-        ...
+        //
     }
 
 
