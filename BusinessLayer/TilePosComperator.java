@@ -1,5 +1,7 @@
 package BusinessLayer;
 
+import BusinessLayer.Tiles.Tile;
+
 import java.util.Comparator;
 
 public class TilePosComperator implements Comparator<Tile> {

@@ -1,5 +1,8 @@
 package BusinessLayer;
 
+import BusinessLayer.Tiles.Empty;
+import BusinessLayer.Tiles.Wall;
+
 public interface Visitor {
     public void visit(Empty empty);
     public void visit(Wall wall);

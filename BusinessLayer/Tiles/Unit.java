@@ -1,14 +1,19 @@
-package BusinessLayer;
+package BusinessLayer.Tiles;
 
+import BusinessLayer.Position;
 import BusinessLayer.Resource;
+import BusinessLayer.SwapCallback;
+import BusinessLayer.Visitor;
 import FrontEnd.MessageCallback;
 
-public abstract class Unit extends Tile {
+public abstract class Unit extends Tile implements Visitor {
 	private String name;
     private Resource hp;
     private int attack;
     private int defense;
-    private MessageCallback msgCallbck;
+    private MessageCallback msgCallback;
+
+    private SwapCallback swapCallback;
 
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
         super(tile);
@@ -19,20 +24,30 @@ public abstract class Unit extends Tile {
         this.defense = defense;
     }
 
-    protected void initialize(Position position, MessageCallback messageCallback){
+    protected void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback){
         this.position = position;
-        this.msgCallbck = messageCallback;
+        this.msgCallback = messageCallback;
+        this.swapCallback = swapCallback;
     }
-	
-    protected int attack(){
-		return 0;
+
+    protected void battle(Unit u){
+        u.takeDmg(rollAttack());
+    }
+
+    protected void takeDmg(int atk){
+        int dmg = atk - rollDefence() > 0 ? atk - rollDefence() : 0;
+        this.hp.takeAmount(dmg);
+        if(hp.getCurrAmount() == 0)
+        {
+            onDeath();
+        }
     }
 
     public int rollAttack(){
-        return 0;
+        return (int)Math.random() * (getAttack() + 1);
     }
     public int rollDefence(){
-        return 0;
+        return (int)Math.random() * (getDefense() + 1);
     }
 
 
@@ -55,9 +70,7 @@ public abstract class Unit extends Tile {
     public abstract void visit(Enemy e);
 
 	// Combat against another unit.
-    protected void battle(Unit u){
-        //
-    }
+
 
 
     public String describe() {

@@ -1,4 +1,7 @@
-package BusinessLayer;
+package BusinessLayer.Tiles;
+
+import BusinessLayer.Position;
+import BusinessLayer.Visitor;
 
 public class Wall extends Tile{
     public Wall(int x, int y){
