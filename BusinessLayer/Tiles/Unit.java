@@ -7,13 +7,13 @@ import BusinessLayer.Visitor;
 import FrontEnd.MessageCallback;
 
 public abstract class Unit extends Tile implements Visitor {
-	private String name;
-    private Resource hp;
-    private int attack;
-    private int defense;
-    private MessageCallback msgCallback;
+	protected String name;
+    protected Resource hp;
+    protected int attack;
+    protected int defense;
+    protected MessageCallback msgCallback;
 
-    private SwapCallback swapCallback;
+    protected SwapCallback swapCallback;
 
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
         super(tile);
@@ -31,15 +31,15 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     protected void battle(Unit u){
-        u.takeDmg(rollAttack());
+        u.takeDmg(rollAttack(), u);
     }
 
-    protected void takeDmg(int atk){
+    protected void takeDmg(int atk, Unit attacker){
         int dmg = atk - rollDefence() > 0 ? atk - rollDefence() : 0;
         this.hp.takeAmount(dmg);
         if(hp.getCurrAmount() == 0)
         {
-            onDeath();
+            onDeath(attacker);
         }
     }
 
@@ -55,7 +55,7 @@ public abstract class Unit extends Tile implements Visitor {
     public abstract void processStep();
 	
 	// What happens when the unit dies
-    public abstract void onDeath();
+    public abstract void onDeath(Unit killer);
 
 	// This unit attempts to interact with another tile.
     public void interact(Tile tile){
@@ -63,21 +63,20 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     public void visit(Empty e){
-		//
+		swapCallback.swap(this, e);
     }
 
     public abstract void visit(Player p);
     public abstract void visit(Enemy e);
 
-	// Combat against another unit.
-
-
-
+    public void visit(Wall w){
+        ;
+    }
     public String describe() {
         return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
     }
 
-
+    public abstract void onGameTick();
     public String getName()
     {
         return name;
