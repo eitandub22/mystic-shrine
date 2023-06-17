@@ -30,9 +30,9 @@ public class Board {
     private List<Enemy> getEnemiesInRange(Tile start, Tile end) {
         List<Enemy> enemies = new LinkedList<>();
         for (int i = start.getPosition().getY(); i < end.getPosition().getY(); i++) {
-            for (int j = start.getPosition().getX(); j < end.getPosition().getX() ; j++) {
-                if(get(i,j).getTile() != '@' && get(i,j).getTile() != '.' && get(i,j).getTile() != '#'){
-                    enemies.add((Enemy) get(i,j));
+            for (int j = start.getPosition().getX(); j < end.getPosition().getX(); j++) {
+                if (get(i, j).getTile() != '@' && get(i, j).getTile() != '.' && get(i, j).getTile() != '#') {
+                    enemies.add((Enemy) get(i, j));
                 }
             }
         }

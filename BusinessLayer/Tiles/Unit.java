@@ -1,5 +1,6 @@
 package BusinessLayer.Tiles;
 
+import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Position;
 import BusinessLayer.Resource;
 import BusinessLayer.Callbacks.SwapCallback;
@@ -15,6 +16,8 @@ public abstract class Unit extends Tile implements Visitor {
 
     protected SwapCallback swapCallback;
 
+    protected EnemiesInRange enemiesInRange;
+
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
         super(tile);
         this.name = name;
@@ -24,17 +27,18 @@ public abstract class Unit extends Tile implements Visitor {
         this.defense = defense;
     }
 
-    protected void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback){
+    protected void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback, EnemiesInRange enemiesInRange){
         this.position = position;
         this.msgCallback = messageCallback;
         this.swapCallback = swapCallback;
+        this.enemiesInRange = enemiesInRange;
     }
 
     protected void battle(Unit u){
         u.takeDmg(rollAttack(), u);
     }
 
-    protected void takeDmg(int atk, Unit attacker){
+    public void takeDmg(int atk, Unit attacker){
         int dmg = atk - rollDefence() > 0 ? atk - rollDefence() : 0;
         this.hp.takeAmount(dmg);
         if(hp.getCurrAmount() == 0)
