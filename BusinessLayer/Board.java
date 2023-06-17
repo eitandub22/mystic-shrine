@@ -1,8 +1,13 @@
 package BusinessLayer;
 
+import BusinessLayer.Callbacks.EnemiesInRange;
+import BusinessLayer.Callbacks.SwapCallback;
 import BusinessLayer.Tiles.Empty;
+import BusinessLayer.Tiles.Enemy;
 import BusinessLayer.Tiles.Tile;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Board {
@@ -12,11 +17,26 @@ public class Board {
 
     private SwapCallback swapCallback;
 
+    private EnemiesInRange enemiesInRange;
+
     public Board(int width, int height){
         tiles = new FindTreeSet<>(new TilePosComperator());
         this.height = height;
         this.width = width;
         this.swapCallback = (Tile t1, Tile t2) -> this.swap(t1, t2);
+        this.enemiesInRange = (Tile start, Tile end)-> this.getEnemiesInRange(start, end);
+    }
+
+    private List<Enemy> getEnemiesInRange(Tile start, Tile end) {
+        List<Enemy> enemies = new LinkedList<>();
+        for (int i = start.getPosition().getY(); i < end.getPosition().getY(); i++) {
+            for (int j = start.getPosition().getX(); j < end.getPosition().getX() ; j++) {
+                if(get(i,j).getTile() != '@' && get(i,j).getTile() != '.' && get(i,j).getTile() != '#'){
+                    enemies.add((Enemy) get(i,j));
+                }
+            }
+        }
+        return enemies;
     }
 
     public Tile get(int x, int y){

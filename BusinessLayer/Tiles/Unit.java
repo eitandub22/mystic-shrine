@@ -2,7 +2,7 @@ package BusinessLayer.Tiles;
 
 import BusinessLayer.Position;
 import BusinessLayer.Resource;
-import BusinessLayer.SwapCallback;
+import BusinessLayer.Callbacks.SwapCallback;
 import BusinessLayer.Visitor;
 import FrontEnd.MessageCallback;
 

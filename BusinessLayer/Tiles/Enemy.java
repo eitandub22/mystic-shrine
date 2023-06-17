@@ -2,7 +2,7 @@ package BusinessLayer.Tiles;
 
 import BusinessLayer.Visitor;
 
-public class Enemy extends Unit{
+public abstract class Enemy extends Unit{
     private Integer expVal;
     protected Enemy(char tile, String name, int healthCapacity, int attack, int defense, int expVal) {
         super(tile, name, healthCapacity, attack, defense);
@@ -31,6 +31,8 @@ public class Enemy extends Unit{
     public void visit(Enemy e) {
         ;
     }
+
+    public abstract void onGameTick();
 
     @Override
     public void accept(Visitor visitor) {

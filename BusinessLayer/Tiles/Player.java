@@ -52,4 +52,6 @@ public abstract class Player extends Unit{
     }
 
     public abstract void castSpecial();
+
+    public abstract void onGameTick();
 }
