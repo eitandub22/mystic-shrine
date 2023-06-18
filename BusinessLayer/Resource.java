@@ -18,7 +18,6 @@ public class Resource {
     public void updatePool(int newPool)
     {
         this.pool = newPool;
-        this.currAmount = Math.min(this.currAmount, this.pool);
     }
 
     public void takeAmount(int toTake)

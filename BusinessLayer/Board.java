@@ -4,12 +4,13 @@ import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Callbacks.GetTile;
 import BusinessLayer.Callbacks.PlayerInRange;
 import BusinessLayer.Callbacks.SwapCallback;
-import BusinessLayer.Tiles.Empty;
-import BusinessLayer.Tiles.Enemy;
-import BusinessLayer.Tiles.Player;
+import BusinessLayer.DataStructs.FindTreeSet;
+import BusinessLayer.DataStructs.TilePosComperator;
+import BusinessLayer.Tiles.EnvironmentObjects.Empty;
+import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Player;
 import BusinessLayer.Tiles.Tile;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,27 +33,24 @@ public class Board {
         this.width = width;
         this.swapCallback = (Tile t1, Tile t2) -> this.swap(t1, t2);
         this.enemiesInRange = (Tile start, int range)-> this.getEnemiesInRange(start, range);
-        playerInRange = (Tile start, int range)-> this.getPlayerInRange(start, range);
+        this.playerInRange = (Tile start, int range)-> this.getPlayerInRange(start, range);
         this.getTile = (int x, int y) -> this.get(x, y);
     }
 
     private Player getPlayerInRange(Tile start, int range){
         Player player;
         for (Tile t:tiles) {
-            if(t.getPosition().range(start.getPosition()) < range && t.getTile() == '@'){
+            if(t.getPosition().distance(start.getPosition()) < range && t.getTile() == '@'){
                 return (Player)t;
             }
         }
         return null;
     }
     private List<Enemy> getEnemiesInRange(Tile start, int range) {
-        List<Enemy> enemies = new LinkedList<>();
-        for (Tile t:tiles) {
-            if(t.getPosition().range(start.getPosition()) < range && isMonster(t)){
-                enemies.add((Enemy) t);
-            }
-        }
-        return enemies;
+        return this.tiles.stream().
+                filter((Tile t) -> isMonster(t) && start.getPosition().distance(t.getPosition()) <= range).
+                map((Tile t) -> (Enemy)t).
+                collect(Collectors.toList());
     }
 
     private boolean isMonster(Tile tile){

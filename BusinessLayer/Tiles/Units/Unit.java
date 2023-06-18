@@ -1,9 +1,13 @@
-package BusinessLayer.Tiles;
+package BusinessLayer.Tiles.Units;
 
 import BusinessLayer.Callbacks.EnemiesInRange;
+import BusinessLayer.Callbacks.GetTile;
 import BusinessLayer.Position;
 import BusinessLayer.Resource;
 import BusinessLayer.Callbacks.SwapCallback;
+import BusinessLayer.Tiles.EnvironmentObjects.Empty;
+import BusinessLayer.Tiles.EnvironmentObjects.Wall;
+import BusinessLayer.Tiles.Tile;
 import BusinessLayer.Visitor;
 import FrontEnd.MessageCallback;
 
@@ -13,8 +17,9 @@ public abstract class Unit extends Tile implements Visitor {
     protected int attack;
     protected int defense;
     protected MessageCallback msgCallback;
-
     protected SwapCallback swapCallback;
+    protected EnemiesInRange enemiesInRange;
+    protected GetTile getTile;
 
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
         super(tile);
@@ -25,10 +30,12 @@ public abstract class Unit extends Tile implements Visitor {
         this.defense = defense;
     }
 
-    protected void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback){
+    public void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback, EnemiesInRange enemiesInRange, GetTile getTile){
         this.position = position;
         this.msgCallback = messageCallback;
         this.swapCallback = swapCallback;
+        this.enemiesInRange = enemiesInRange;
+        this.getTile = getTile;
     }
 
     protected void battle(Unit u){
@@ -38,7 +45,7 @@ public abstract class Unit extends Tile implements Visitor {
     public void takeDmg(int atk, Unit attacker){
         int dmg = atk - rollDefence() > 0 ? atk - rollDefence() : 0;
         this.hp.takeAmount(dmg);
-        if(hp.getCurrAmount() == 0)
+        if(hp.getCurrAmount() <= 0)
         {
             onDeath(attacker);
         }

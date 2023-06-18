@@ -1,4 +1,4 @@
-package BusinessLayer;
+package BusinessLayer.DataStructs;
 
 import java.util.Comparator;
 import java.util.TreeSet;

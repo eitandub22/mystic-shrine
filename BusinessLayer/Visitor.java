@@ -1,9 +1,9 @@
 package BusinessLayer;
 
-import BusinessLayer.Tiles.Empty;
-import BusinessLayer.Tiles.Enemy;
-import BusinessLayer.Tiles.Player;
-import BusinessLayer.Tiles.Wall;
+import BusinessLayer.Tiles.EnvironmentObjects.Empty;
+import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Player;
+import BusinessLayer.Tiles.EnvironmentObjects.Wall;
 
 public interface Visitor {
     public void visit(Empty empty);

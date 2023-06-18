@@ -1,19 +1,17 @@
-package BusinessLayer.Players;
+package BusinessLayer.Tiles.Units.Classes;
 
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
-import BusinessLayer.Tiles.Empty;
-import BusinessLayer.Tiles.Enemy;
-import BusinessLayer.Tiles.Player;
-import BusinessLayer.Visitor;
+import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Player;
 
 import java.util.List;
 import java.util.Random;
 
 public class Warrior extends Player {
     Resource cooldown;
-    protected Warrior(char tile, String name, int healthCapacity, int attack, int defense, EnemiesInRange enemiesInRange, Integer cooldown) {
-        super(tile, name, healthCapacity, attack, defense, enemiesInRange);
+    public Warrior(String name, int healthCapacity, int attack, int defense, Integer cooldown) {
+        super(name, healthCapacity, attack, defense);
         this.cooldown = new Resource(cooldown);
     }
 
@@ -33,9 +31,9 @@ public class Warrior extends Player {
     public void levelUp(){
         super.levelUp();
         cooldown.takeAmount(cooldown.getCurrAmount());
-        hp.updatePool(hp.getPool() + 5*level);
-        attack += 2*level;
-        defense += level;
+        hp.updatePool(hp.getPool() + 5*lvl);
+        attack += 2*lvl;
+        defense += lvl;
     }
 
     @Override

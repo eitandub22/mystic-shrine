@@ -1,6 +1,6 @@
 package BusinessLayer.Callbacks;
 
-import BusinessLayer.Tiles.Enemy;
+import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Tile;
 
 import java.util.List;

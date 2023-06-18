@@ -1,10 +1,9 @@
-package BusinessLayer.Players;
+package BusinessLayer.Tiles.Units.Classes;
 
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
-import BusinessLayer.Tiles.Empty;
-import BusinessLayer.Tiles.Enemy;
-import BusinessLayer.Tiles.Player;
+import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Player;
 
 import java.util.List;
 import java.util.Random;
@@ -16,8 +15,8 @@ public class Rogue extends Player {
 
     private final Integer MAX_AMOUNT = 100;
 
-    protected Rogue(char tile, String name, int healthCapacity, int attack, int defense, EnemiesInRange enemiesInRange, Integer cost) {
-        super(tile, name, healthCapacity, attack, defense, enemiesInRange);
+    public Rogue(String name, int healthCapacity, int attack, int defense, Integer cost) {
+        super(name, healthCapacity, attack, defense);
         this.cost = cost;
         energy = new Resource(MAX_AMOUNT);
         energy.addAmount(MAX_AMOUNT);
@@ -44,6 +43,6 @@ public class Rogue extends Player {
     public void levelUp(){
         super.levelUp();
         energy.addAmount(MAX_AMOUNT);
-        attack += 3*level;
+        attack += 3*lvl;
     }
 }

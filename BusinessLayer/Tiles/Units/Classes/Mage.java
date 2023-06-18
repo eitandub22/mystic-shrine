@@ -1,10 +1,9 @@
-package BusinessLayer.Players;
+package BusinessLayer.Tiles.Units.Classes;
 
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
-import BusinessLayer.Tiles.Empty;
-import BusinessLayer.Tiles.Enemy;
-import BusinessLayer.Tiles.Player;
+import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Player;
 
 import java.util.List;
 import java.util.Random;
@@ -20,8 +19,8 @@ public class Mage extends Player {
 
     private Integer range;
 
-    protected Mage(char tile, String name, int healthCapacity, int attack, int defense, EnemiesInRange enemiesInRange, Integer manaPool, Integer manaCost, Integer spellPow, Integer hitsCount, Integer range) {
-        super(tile, name, healthCapacity, attack, defense, enemiesInRange);
+    public Mage(String name, int healthCapacity, int attack, int defense, Integer manaPool, Integer manaCost, Integer spellPow, Integer hitsCount, Integer range) {
+        super(name, healthCapacity, attack, defense);
         mana = new Resource(manaPool);
         mana.addAmount((-1*mana.getCurrAmount() + mana.getPool()/4));
         cost = manaCost;
@@ -48,14 +47,14 @@ public class Mage extends Player {
 
     @Override
     public void onGameTick() {
-        mana.addAmount(level);
+        mana.addAmount(lvl);
     }
 
     @Override
     public void levelUp(){
         super.levelUp();
-        mana.updatePool(mana.getPool() + 25*level);
+        mana.updatePool(mana.getPool() + 25*lvl);
         mana.addAmount(mana.getPool()/4);
-        spellPow += 10*level;
+        spellPow += 10*lvl;
     }
 }

@@ -1,4 +1,4 @@
-package BusinessLayer;
+package BusinessLayer.DataStructs;
 
 import BusinessLayer.Tiles.Tile;
 

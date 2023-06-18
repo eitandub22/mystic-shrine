@@ -1,16 +1,16 @@
-package BusinessLayer.Enemies;
+package BusinessLayer.Tiles.Units.Enemies;
 
 import BusinessLayer.Callbacks.GetTile;
 import BusinessLayer.Callbacks.PlayerInRange;
-import BusinessLayer.Tiles.Enemy;
-import BusinessLayer.Tiles.Player;
+import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Player;
 
 import java.util.Random;
 
 public class Monster extends Enemy {
     Integer visionRange;
-    protected Monster(char tile, String name, int healthCapacity, int attack, int defense, int expVal, PlayerInRange player, GetTile getTile, Integer visionRange) {
-        super(tile, name, healthCapacity, attack, defense, expVal, player, getTile);
+    public Monster(char tile, String name, int healthCapacity, int attack, int defense, int expVal, Integer visionRange) {
+        super(tile, name, healthCapacity, attack, defense, expVal);
         this.visionRange = visionRange;
     }
 

@@ -1,6 +1,6 @@
 package BusinessLayer.Callbacks;
 
-import BusinessLayer.Tiles.Player;
+import BusinessLayer.Tiles.Units.Player;
 import BusinessLayer.Tiles.Tile;
 
 public interface PlayerInRange {

@@ -1,18 +1,17 @@
-package BusinessLayer.Tiles;
+package BusinessLayer.Tiles.Units;
 
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Visitor;
 
 public abstract class Player extends Unit{
-    protected Integer exp;
-    protected Integer level;
+    protected Integer xp;
+    protected Integer lvl;
 
     protected EnemiesInRange enemiesInRange;
-    protected Player(char tile, String name, int healthCapacity, int attack, int defense, EnemiesInRange enemiesInRange) {
-        super(tile, name, healthCapacity, attack, defense);
-        exp = 0;
-        level = 1;
-        this.enemiesInRange = enemiesInRange;
+    protected Player(String name, int healthCapacity, int attack, int defense) {
+        super('@', name, healthCapacity, attack, defense);
+        xp = 0;
+        lvl = 1;
     }
 
     @Override
@@ -22,6 +21,7 @@ public abstract class Player extends Unit{
 
     @Override
     public void onDeath(Unit killer) {
+        msgCallback.send(this.name + "Killed by " + killer.getName());
         msgCallback.send("GAME OVER");
         tile = 'X';
         //call endGame
@@ -29,7 +29,7 @@ public abstract class Player extends Unit{
 
     @Override
     public void visit(Player p) {
-        ;
+        //we don't have multiplayer!;
     }
 
     @Override
@@ -38,16 +38,21 @@ public abstract class Player extends Unit{
     }
 
     public void levelUp(){
-        exp -= 50*level;
-        level++;
-        hp.updatePool(hp.getPool() + 10*level);
+        if(xp < lvl*50)
+        {
+            return;
+        }
+
+        xp -= 50*lvl;
+        lvl++;
+        hp.updatePool(hp.getPool() + 10*lvl);
         hp.addAmount(hp.getPool());
-        attack += 4*level;
-        defense += level;
+        attack += 4*lvl;
+        defense += lvl;
     }
 
     public void addExp(int val){
-        exp += val;
+        xp += val;
     }
 
     @Override
@@ -57,5 +62,8 @@ public abstract class Player extends Unit{
 
     public abstract void castSpecial();
 
-    public abstract void onGameTick();
+    public void onGameTick()
+    {
+
+    }
 }
