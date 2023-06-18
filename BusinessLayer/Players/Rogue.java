@@ -1,5 +1,6 @@
 package BusinessLayer.Players;
 
+import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Empty;
 import BusinessLayer.Tiles.Enemy;
@@ -15,8 +16,8 @@ public class Rogue extends Player {
 
     private final Integer MAX_AMOUNT = 100;
 
-    protected Rogue(char tile, String name, int healthCapacity, int attack, int defense, Integer cost) {
-        super(tile, name, healthCapacity, attack, defense);
+    protected Rogue(char tile, String name, int healthCapacity, int attack, int defense, EnemiesInRange enemiesInRange, Integer cost) {
+        super(tile, name, healthCapacity, attack, defense, enemiesInRange);
         this.cost = cost;
         energy = new Resource(MAX_AMOUNT);
         energy.addAmount(MAX_AMOUNT);
@@ -27,7 +28,7 @@ public class Rogue extends Player {
         if(energy.getCurrAmount() >= cost){
             energy.takeAmount(cost);
             Random rand = new Random();
-            List<Enemy> enemyList = enemiesInRange.get(new Empty(position.getX() - 1, position.getY() - 1), new Empty(position.getX() + 1, position.getY() + 1));
+            List<Enemy> enemyList = enemiesInRange.get(this, 2);
             for (Enemy enemy: enemyList) {
                 enemy.takeDmg(attack, this);
             }

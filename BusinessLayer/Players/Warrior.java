@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class Warrior extends Player {
     Resource cooldown;
-    protected Warrior(char tile, String name, int healthCapacity, int attack, int defense, Integer cooldown) {
-        super(tile, name, healthCapacity, attack, defense);
+    protected Warrior(char tile, String name, int healthCapacity, int attack, int defense, EnemiesInRange enemiesInRange, Integer cooldown) {
+        super(tile, name, healthCapacity, attack, defense, enemiesInRange);
         this.cooldown = new Resource(cooldown);
     }
 
@@ -22,7 +22,7 @@ public class Warrior extends Player {
         if(cooldown.getCurrAmount() == 0){
             cooldown.addAmount(cooldown.getPool());
             hp.addAmount(10*defense);
-            List<Enemy> enemyList = enemiesInRange.get(new Empty(position.getX() - 2, position.getY() - 2), new Empty(position.getX() + 2, position.getY() + 2));
+            List<Enemy> enemyList = enemiesInRange.get(this, 3);
             Random rand = new Random();
             Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
             randomEnemy.takeDmg(hp.getPool()/10, this);

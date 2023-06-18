@@ -16,8 +16,6 @@ public abstract class Unit extends Tile implements Visitor {
 
     protected SwapCallback swapCallback;
 
-    protected EnemiesInRange enemiesInRange;
-
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
         super(tile);
         this.name = name;
@@ -27,11 +25,10 @@ public abstract class Unit extends Tile implements Visitor {
         this.defense = defense;
     }
 
-    protected void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback, EnemiesInRange enemiesInRange){
+    protected void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback){
         this.position = position;
         this.msgCallback = messageCallback;
         this.swapCallback = swapCallback;
-        this.enemiesInRange = enemiesInRange;
     }
 
     protected void battle(Unit u){

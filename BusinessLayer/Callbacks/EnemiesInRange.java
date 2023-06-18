@@ -6,5 +6,5 @@ import BusinessLayer.Tiles.Tile;
 import java.util.List;
 
 public interface EnemiesInRange {
-    public List<Enemy> get(Tile rangeStart, Tile rangeEnd);
+    public List<Enemy> get(Tile start, int range);
 }

@@ -1,9 +1,11 @@
 package BusinessLayer;
 
 import BusinessLayer.Callbacks.EnemiesInRange;
+import BusinessLayer.Callbacks.PlayerInRange;
 import BusinessLayer.Callbacks.SwapCallback;
 import BusinessLayer.Tiles.Empty;
 import BusinessLayer.Tiles.Enemy;
+import BusinessLayer.Tiles.Player;
 import BusinessLayer.Tiles.Tile;
 
 import java.util.LinkedList;
@@ -19,24 +21,38 @@ public class Board {
 
     private EnemiesInRange enemiesInRange;
 
+    private PlayerInRange playerInRange;
+
     public Board(int width, int height){
         tiles = new FindTreeSet<>(new TilePosComperator());
         this.height = height;
         this.width = width;
         this.swapCallback = (Tile t1, Tile t2) -> this.swap(t1, t2);
-        this.enemiesInRange = (Tile start, Tile end)-> this.getEnemiesInRange(start, end);
+        this.enemiesInRange = (Tile start, int range)-> this.getEnemiesInRange(start, range);
+        playerInRange = (Tile start, int range)-> this.getPlayerInRange(start, range);
     }
 
-    private List<Enemy> getEnemiesInRange(Tile start, Tile end) {
+    private Player getPlayerInRange(Tile start, int range){
+        Player player;
+        for (Tile t:tiles) {
+            if(t.getPosition().range(start.getPosition()) < range && t.getTile() == '@'){
+                return (Player)t;
+            }
+        }
+        return null;
+    }
+    private List<Enemy> getEnemiesInRange(Tile start, int range) {
         List<Enemy> enemies = new LinkedList<>();
-        for (int i = start.getPosition().getY(); i < end.getPosition().getY(); i++) {
-            for (int j = start.getPosition().getX(); j < end.getPosition().getX(); j++) {
-                if (get(i, j).getTile() != '@' && get(i, j).getTile() != '.' && get(i, j).getTile() != '#') {
-                    enemies.add((Enemy) get(i, j));
-                }
+        for (Tile t:tiles) {
+            if(t.getPosition().range(start.getPosition()) < range && isMonster(t)){
+                enemies.add((Enemy) t);
             }
         }
         return enemies;
+    }
+
+    private boolean isMonster(Tile tile){
+        return (tile.getTile() != '@' && tile.getTile() != '.' && tile.getTile() != '#');
     }
 
     public Tile get(int x, int y){

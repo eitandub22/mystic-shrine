@@ -1,14 +1,18 @@
 package BusinessLayer.Tiles;
 
+import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Visitor;
 
 public abstract class Player extends Unit{
     protected Integer exp;
     protected Integer level;
-    protected Player(char tile, String name, int healthCapacity, int attack, int defense) {
+
+    protected EnemiesInRange enemiesInRange;
+    protected Player(char tile, String name, int healthCapacity, int attack, int defense, EnemiesInRange enemiesInRange) {
         super(tile, name, healthCapacity, attack, defense);
         exp = 0;
         level = 1;
+        this.enemiesInRange = enemiesInRange;
     }
 
     @Override

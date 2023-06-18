@@ -1,5 +1,6 @@
 package BusinessLayer.Players;
 
+import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Empty;
 import BusinessLayer.Tiles.Enemy;
@@ -19,8 +20,8 @@ public class Mage extends Player {
 
     private Integer range;
 
-    protected Mage(char tile, String name, int healthCapacity, int attack, int defense, Integer manaPool, Integer manaCost, Integer spellPow, Integer hitsCount, Integer range) {
-        super(tile, name, healthCapacity, attack, defense);
+    protected Mage(char tile, String name, int healthCapacity, int attack, int defense, EnemiesInRange enemiesInRange, Integer manaPool, Integer manaCost, Integer spellPow, Integer hitsCount, Integer range) {
+        super(tile, name, healthCapacity, attack, defense, enemiesInRange);
         mana = new Resource(manaPool);
         mana.addAmount((-1*mana.getCurrAmount() + mana.getPool()/4));
         cost = manaCost;
@@ -35,7 +36,7 @@ public class Mage extends Player {
             mana.takeAmount(cost);
             int hits = 0;
             Random rand = new Random();
-            List<Enemy> enemyList = enemiesInRange.get(new Empty(position.getX() - range, position.getY() - range), new Empty(position.getX() + range, position.getY() + range));
+            List<Enemy> enemyList = enemiesInRange.get(this, range);
             while(hits < hitsCount && !enemyList.isEmpty()){
                 Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
                 randomEnemy.takeDmg(spellPow, this);
