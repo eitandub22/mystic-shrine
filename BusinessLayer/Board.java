@@ -1,6 +1,7 @@
 package BusinessLayer;
 
 import BusinessLayer.Callbacks.EnemiesInRange;
+import BusinessLayer.Callbacks.GetTile;
 import BusinessLayer.Callbacks.PlayerInRange;
 import BusinessLayer.Callbacks.SwapCallback;
 import BusinessLayer.Tiles.Empty;
@@ -23,6 +24,8 @@ public class Board {
 
     private PlayerInRange playerInRange;
 
+    private GetTile getTile;
+
     public Board(int width, int height){
         tiles = new FindTreeSet<>(new TilePosComperator());
         this.height = height;
@@ -30,6 +33,7 @@ public class Board {
         this.swapCallback = (Tile t1, Tile t2) -> this.swap(t1, t2);
         this.enemiesInRange = (Tile start, int range)-> this.getEnemiesInRange(start, range);
         playerInRange = (Tile start, int range)-> this.getPlayerInRange(start, range);
+        this.getTile = (int x, int y) -> this.get(x, y);
     }
 
     private Player getPlayerInRange(Tile start, int range){

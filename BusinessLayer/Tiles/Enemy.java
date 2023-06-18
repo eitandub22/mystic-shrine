@@ -1,5 +1,6 @@
 package BusinessLayer.Tiles;
 
+import BusinessLayer.Callbacks.GetTile;
 import BusinessLayer.Callbacks.PlayerInRange;
 import BusinessLayer.Visitor;
 
@@ -9,11 +10,14 @@ public abstract class Enemy extends Unit{
     private boolean isDead;
 
     protected PlayerInRange playerInRange;
-    protected Enemy(char tile, String name, int healthCapacity, int attack, int defense, int expVal, PlayerInRange player) {
+
+    protected GetTile getTile;
+    protected Enemy(char tile, String name, int healthCapacity, int attack, int defense, int expVal, PlayerInRange player, GetTile getTile) {
         super(tile, name, healthCapacity, attack, defense);
         this.expVal = expVal;
         this.isDead = false;
         this.playerInRange = player;
+        this.getTile = getTile;
     }
 
     @Override
