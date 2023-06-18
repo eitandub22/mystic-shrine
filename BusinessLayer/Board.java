@@ -7,6 +7,7 @@ import BusinessLayer.Callbacks.SwapCallback;
 import BusinessLayer.DataStructs.FindTreeSet;
 import BusinessLayer.DataStructs.TilePosComperator;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
+import BusinessLayer.Tiles.Units.Enemies.Monster;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
 import BusinessLayer.Tiles.Tile;
@@ -40,7 +41,7 @@ public class Board {
 
     private Player getPlayerInRange(Tile start, int range){
         List<Player> tilesInRange = this.tiles.stream().
-                filter((Tile t) -> t.getTile() == '@' && start.getPosition().distance(t.getPosition()) <= range).
+                filter((Tile t) -> t.getTile() == '@' && start.getPosition().distance(t.getPosition()) < range).
                 map((Tile t) -> (Player)t).
                 collect(Collectors.toList());
 
@@ -94,9 +95,9 @@ public class Board {
         player.onGameTick();
         for(Tile t : tiles)
         {
-            if(t.getTile() != '@')
+            if(isMonster(t))
             {
-
+                ((Enemy)t).onGameTick();
             }
         }
     }

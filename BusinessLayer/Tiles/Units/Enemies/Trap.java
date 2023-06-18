@@ -1,6 +1,7 @@
 package BusinessLayer.Tiles.Units.Enemies;
 
 import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Player;
 
 public class Trap extends Enemy {
 
@@ -20,9 +21,10 @@ public class Trap extends Enemy {
     public void onGameTick() {
         this.ticks++;
         sortVisibility();
-        if(playerInRange.get(this, 2) != null)
+        Player player = playerInRange.get(this, 2);
+        if(player != null)
         {
-            playerInRange.get(this, 2).takeDmg(this.attack, this);
+            player.takeDmg(this.attack, this);
         }
     }
 
@@ -48,8 +50,7 @@ public class Trap extends Enemy {
         {
             return super.toString();
         }
-        else
-        {
+        else {
             return ".";
         }
     }
