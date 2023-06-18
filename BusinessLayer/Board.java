@@ -39,19 +39,16 @@ public class Board {
     }
 
     private Player getPlayerInRange(Tile start, int range){
-        List<Tile> tilesInRange = this.tiles.stream().
+        List<Player> tilesInRange = this.tiles.stream().
                 filter((Tile t) -> t.getTile() == '@' && start.getPosition().distance(t.getPosition()) <= range).
                 map((Tile t) -> (Player)t).
                 collect(Collectors.toList());
 
-        return this.tiles.stream().
-                filter((Tile t) -> t.getTile() == '@' && start.getPosition().distance(t.getPosition()) <= range).
-                map((Tile t) -> (Player)t).
-                collect(Collectors.toList()).get(0);
+        return tilesInRange.size() >= 1 ? tilesInRange.get(0) : null;
     }
     private List<Enemy> getEnemiesInRange(Tile start, int range) {
         return this.tiles.stream().
-                filter((Tile t) -> isMonster(t) && start.getPosition().distance(t.getPosition()) <= range).
+                filter((Tile t) -> isMonster(t) && start.getPosition().distance(t.getPosition()) < range).
                 map((Tile t) -> (Enemy)t).
                 collect(Collectors.toList());
     }

@@ -1,5 +1,6 @@
 package BusinessLayer.Tiles.Units.Classes;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Units.Enemy;
@@ -25,6 +26,10 @@ public class Warrior extends Player {
             Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
             randomEnemy.takeDmg(hp.getPool()/10, this);
         }
+        else
+        {
+            this.msgCallback.send(BarGenerator.Color.RED + "Avenger’s Shield is on cooldown!" + BarGenerator.Color.RESET);
+        }
     }
 
     @Override
@@ -39,5 +44,6 @@ public class Warrior extends Player {
     @Override
     public void onGameTick() {
         cooldown.addAmount( -1);
+        super.onGameTick();
     }
 }

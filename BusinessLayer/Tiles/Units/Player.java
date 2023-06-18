@@ -1,17 +1,25 @@
 package BusinessLayer.Tiles.Units;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Visitor;
+
+import java.awt.*;
+import java.util.Scanner;
 
 public abstract class Player extends Unit{
     protected Integer xp;
     protected Integer lvl;
+    private Scanner in;
+
+    protected static final char SPECIAL = 'e';
 
     protected EnemiesInRange enemiesInRange;
     protected Player(String name, int healthCapacity, int attack, int defense) {
         super('@', name, healthCapacity, attack, defense);
         xp = 0;
         lvl = 1;
+        in = new Scanner(System.in);
     }
 
     @Override
@@ -62,8 +70,24 @@ public abstract class Player extends Unit{
 
     public abstract void castSpecial();
 
+
     public void onGameTick()
     {
+        msgCallback.send("Enter your move:");
+        char move = in.next().charAt(0);
+        switch (move)
+        {
+            case SPECIAL:
+                castSpecial();
+                break;
+            default:
+                move(move);
+        }
+    }
 
+    @Override
+    public String toString()
+    {
+        return BarGenerator.Color.GREEN + super.toString() + BarGenerator.Color.RESET;
     }
 }

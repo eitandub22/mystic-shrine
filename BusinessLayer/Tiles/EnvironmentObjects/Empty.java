@@ -14,4 +14,9 @@ public class Empty extends Tile {
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public void onGameTick() {
+
+    }
 }

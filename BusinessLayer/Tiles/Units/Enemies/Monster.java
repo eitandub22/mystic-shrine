@@ -23,12 +23,12 @@ public class Monster extends Enemy {
             dx = this.getPosition().getX() - p.getPosition().getX();
             dy = this.getPosition().getY() - p.getPosition().getY();
             if(Math.abs(dx) > Math.abs(dy)){
-                if(dx > 0) interact(getTile.get(this.position.getX() - 1, this.position.getY()));//move one tile left
-                else interact(getTile.get(this.position.getX() + 1, this.position.getY()));//move one tile right
+                if(dx > 0) move(LEFT);
+                else move(RIGHT);
             }
             else{
-                if(dy > 0) interact(getTile.get(this.position.getX(), this.position.getY() - 1));//move one tile up
-                else interact(getTile.get(this.position.getX(), this.position.getY() + 1));//move one tile down
+                if(dy > 0) move(UP);
+                else move(DOWN);
             }
         }
         else { //take a random step or stay at the same place
@@ -38,16 +38,16 @@ public class Monster extends Enemy {
                 case 0://stay in place
                     break;
                 case 1:
-                    interact(getTile.get(this.position.getX() - 1, this.position.getY()));
+                    move(UP);
                     break;
                 case 2:
-                    interact(getTile.get(this.position.getX() + 1, this.position.getY()));
+                    move(DOWN);
                     break;
                 case 3:
-                    interact(getTile.get(this.position.getX(), this.position.getY() - 1));
+                    move(LEFT);
                     break;
                 case 4:
-                    interact(getTile.get(this.position.getX() - 1, this.position.getY() + 1));
+                    move(RIGHT);
                     break;
             }
         }

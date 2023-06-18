@@ -1,7 +1,7 @@
 package BusinessLayer;
 
 public class BarGenerator {
-    enum Color {
+    public enum Color {
         //Color end string, color reset
         RESET("\033[0m"),
 

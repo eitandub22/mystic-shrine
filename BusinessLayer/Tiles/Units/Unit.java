@@ -1,5 +1,6 @@
 package BusinessLayer.Tiles.Units;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Callbacks.GetTile;
 import BusinessLayer.Position;
@@ -21,10 +22,16 @@ public abstract class Unit extends Tile implements Visitor {
     protected EnemiesInRange enemiesInRange;
     protected GetTile getTile;
 
+    protected static final char UP = 'w';
+    protected static final char DOWN = 's';
+    protected static final char LEFT = 'a';
+    protected static final char RIGHT = 'd';
+
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
         super(tile);
         this.name = name;
         this.hp = new Resource(healthCapacity);
+        this.hp.setColor(BarGenerator.Color.RED);
         this.hp.addAmount(healthCapacity);
         this.attack = attack;
         this.defense = defense;
@@ -43,7 +50,8 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     public void takeDmg(int atk, Unit attacker){
-        int dmg = atk - rollDefence() > 0 ? atk - rollDefence() : 0;
+        int def = rollDefence();
+        int dmg = atk - def > 0 ? atk - def : 0;
         this.hp.takeAmount(dmg);
         if(hp.getCurrAmount() <= 0)
         {
@@ -84,7 +92,6 @@ public abstract class Unit extends Tile implements Visitor {
         return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
     }
 
-    public abstract void onGameTick();
     public String getName()
     {
         return name;
@@ -103,5 +110,25 @@ public abstract class Unit extends Tile implements Visitor {
     public int getDefense()
     {
         return defense;
+    }
+
+    protected void move(char direction)
+    {
+        switch (direction)
+        {
+            case UP:
+                interact(getTile.get(position.getX(), position.getY() - 1));
+                break;
+            case DOWN:
+                interact(getTile.get(position.getX(), position.getY() + 1));
+                break;
+            case LEFT:
+                interact(getTile.get(position.getX() - 1, position.getY()));
+                break;
+            case RIGHT:
+                interact(getTile.get(position.getX() + 1, position.getY()));
+                break;
+            default:
+        }
     }
 }

@@ -1,5 +1,6 @@
 package BusinessLayer.Tiles.Units;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Callbacks.GetTile;
 import BusinessLayer.Callbacks.PlayerInRange;
@@ -32,7 +33,7 @@ public abstract class Enemy extends Unit{
         swapCallback.swap(this, empty);
         swapCallback.swap(empty, killer);
         this.isDead = true;
-        msgCallback.send(String.format("%s died. %s gained %d experience", name, killer.getName(), expVal));
+        msgCallback.send(String.format("%s was slain!. %s gained %d exp", name, killer.getName(), expVal));
     }
 
     public void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback, EnemiesInRange enemiesInRange, GetTile getTile, PlayerInRange playerInRange)
@@ -59,5 +60,11 @@ public abstract class Enemy extends Unit{
 
     public boolean isDead(){
         return this.isDead;
+    }
+
+    @Override
+    public String toString()
+    {
+        return BarGenerator.Color.RED + super.toString() + BarGenerator.Color.RESET;
     }
 }

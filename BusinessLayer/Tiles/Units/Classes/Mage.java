@@ -1,5 +1,6 @@
 package BusinessLayer.Tiles.Units.Classes;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Units.Enemy;
@@ -22,7 +23,7 @@ public class Mage extends Player {
     public Mage(String name, int healthCapacity, int attack, int defense, Integer manaPool, Integer manaCost, Integer spellPow, Integer hitsCount, Integer range) {
         super(name, healthCapacity, attack, defense);
         mana = new Resource(manaPool);
-        mana.addAmount((-1*mana.getCurrAmount() + mana.getPool()/4));
+        mana.addAmount(mana.getPool()/4);
         cost = manaCost;
         this.spellPow = spellPow;
         this.hitsCount = hitsCount;
@@ -43,10 +44,15 @@ public class Mage extends Player {
                 hits++;
             }
         }
+        else
+        {
+            this.msgCallback.send(BarGenerator.Color.RED + "Out of Mana!" + BarGenerator.Color.RESET);
+        }
     }
 
     @Override
     public void onGameTick() {
+        super.onGameTick();
         mana.addAmount(lvl);
     }
 

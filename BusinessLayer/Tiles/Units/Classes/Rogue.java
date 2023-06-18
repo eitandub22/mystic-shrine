@@ -1,5 +1,6 @@
 package BusinessLayer.Tiles.Units.Classes;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Units.Enemy;
@@ -26,16 +27,20 @@ public class Rogue extends Player {
     public void castSpecial() {
         if(energy.getCurrAmount() >= cost){
             energy.takeAmount(cost);
-            Random rand = new Random();
             List<Enemy> enemyList = enemiesInRange.get(this, 2);
             for (Enemy enemy: enemyList) {
                 enemy.takeDmg(attack, this);
             }
         }
+        else
+        {
+            this.msgCallback.send(BarGenerator.Color.RED + "Out of Energy!" + BarGenerator.Color.RESET);
+        }
     }
 
     @Override
     public void onGameTick() {
+        super.onGameTick();
         energy.addAmount(MAX_AMOUNT/10);
     }
 
