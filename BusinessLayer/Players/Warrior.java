@@ -25,14 +25,14 @@ public class Warrior extends Player {
             List<Enemy> enemyList = enemiesInRange.get(new Empty(position.getX() - 2, position.getY() - 2), new Empty(position.getX() + 2, position.getY() + 2));
             Random rand = new Random();
             Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
-            randomEnemy.takeDmg((int) (hp.getPool()*0.1), this);
+            randomEnemy.takeDmg(hp.getPool()/10, this);
         }
     }
 
     @Override
     public void levelUp(){
         super.levelUp();
-        cooldown.addAmount(-1*cooldown.getCurrAmount());
+        cooldown.takeAmount(cooldown.getCurrAmount());
         hp.updatePool(hp.getPool() + 5*level);
         attack += 2*level;
         defense += level;

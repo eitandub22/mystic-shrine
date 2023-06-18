@@ -4,9 +4,12 @@ import BusinessLayer.Visitor;
 
 public abstract class Enemy extends Unit{
     private Integer expVal;
+
+    private boolean isDead;
     protected Enemy(char tile, String name, int healthCapacity, int attack, int defense, int expVal) {
         super(tile, name, healthCapacity, attack, defense);
         this.expVal = expVal;
+        this.isDead = false;
     }
 
     @Override
@@ -19,6 +22,7 @@ public abstract class Enemy extends Unit{
         Empty empty = new Empty(this.position.getX(), this.position.getY());
         swapCallback.swap(this, empty);
         swapCallback.swap(empty, killer);
+        this.isDead = true;
         msgCallback.send(String.format("%s died. %s gained %d experience", name, killer.getName(), expVal));
     }
 
@@ -37,5 +41,9 @@ public abstract class Enemy extends Unit{
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
+    }
+
+    public boolean isDead(){
+        return this.isDead;
     }
 }
