@@ -19,6 +19,7 @@ public class Board {
     private int height;
     private FindTreeSet<Tile> tiles;
 
+    private Player player;
     private SwapCallback swapCallback;
 
     private EnemiesInRange enemiesInRange;
@@ -38,13 +39,10 @@ public class Board {
     }
 
     private Player getPlayerInRange(Tile start, int range){
-        Player player;
-        for (Tile t:tiles) {
-            if(t.getPosition().distance(start.getPosition()) < range && t.getTile() == '@'){
-                return (Player)t;
-            }
-        }
-        return null;
+        return this.tiles.stream().
+                filter((Tile t) -> t.getTile() == '@' && start.getPosition().distance(t.getPosition()) <= range).
+                map((Tile t) -> (Player)t).
+                collect(Collectors.toList()).get(0);
     }
     private List<Enemy> getEnemiesInRange(Tile start, int range) {
         return this.tiles.stream().
@@ -91,6 +89,13 @@ public class Board {
 
 
     public void tick(){
-        ;
+        player.onGameTick();
+        for(Tile t : tiles)
+        {
+            if(t.getTile() != '@')
+            {
+                
+            }
+        }
     }
 }
