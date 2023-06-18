@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class Monster extends Enemy {
     Integer visionRange;
-    public Monster(char tile, String name, int healthCapacity, int attack, int defense, int expVal, Integer visionRange, PlayerInRange player) {
-        super(tile, name, healthCapacity, attack, defense, expVal, player);
+    public Monster(char tile, String name, int healthCapacity, int attack, int defense, int expVal, Integer visionRange) {
+        super(tile, name, healthCapacity, attack, defense, expVal);
         this.visionRange = visionRange;
     }
 

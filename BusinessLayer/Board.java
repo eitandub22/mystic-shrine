@@ -39,6 +39,11 @@ public class Board {
     }
 
     private Player getPlayerInRange(Tile start, int range){
+        List<Tile> tilesInRange = this.tiles.stream().
+                filter((Tile t) -> t.getTile() == '@' && start.getPosition().distance(t.getPosition()) <= range).
+                map((Tile t) -> (Player)t).
+                collect(Collectors.toList());
+
         return this.tiles.stream().
                 filter((Tile t) -> t.getTile() == '@' && start.getPosition().distance(t.getPosition()) <= range).
                 map((Tile t) -> (Player)t).
@@ -94,7 +99,7 @@ public class Board {
         {
             if(t.getTile() != '@')
             {
-                
+
             }
         }
     }
