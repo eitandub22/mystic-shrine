@@ -8,12 +8,14 @@ import BusinessLayer.Visitor;
 public abstract class Enemy extends Unit{
     private Integer expVal;
 
+    protected PlayerInRange playerInRange;
     private boolean isDead;
     protected GetTile getTile;
-    protected Enemy(char tile, String name, int healthCapacity, int attack, int defense, int expVal) {
+    protected Enemy(char tile, String name, int healthCapacity, int attack, int defense, int expVal, PlayerInRange playerInRange) {
         super(tile, name, healthCapacity, attack, defense);
         this.expVal = expVal;
         this.isDead = false;
+        this.playerInRange = playerInRange;
     }
 
     @Override

@@ -46,13 +46,13 @@ public class TileFactory {
 
     private Map<Character, Supplier<Enemy>> initEnemies() {
         List<Supplier<Enemy>> enemies = Arrays.asList(
-                () -> new Monster('s', "Lannister Solider", 80, 8, 3,25, 3),
-                () -> new Monster('k', "Lannister Knight", 200, 14, 8, 50,   4),
-                () -> new Monster('q', "Queen's Guard", 400, 20, 15, 100,  5),
-                () -> new Monster('z', "Wright", 600, 30, 15,100, 3),
-                () -> new Monster('b', "Bear-Wright", 1000, 75, 30, 250,  4),
-                () -> new Monster('g', "Giant-Wright",1500, 100, 40,500,   5),
-                () -> new Monster('w', "White Walker", 2000, 150, 50, 1000, 6)
+                () -> new Monster('s', "Lannister Solider", 80, 8, 3,25, 3, playerInRange),
+                () -> new Monster('k', "Lannister Knight", 200, 14, 8, 50,   4, playerInRange),
+                () -> new Monster('q', "Queen's Guard", 400, 20, 15, 100,  5, playerInRange),
+                () -> new Monster('z', "Wright", 600, 30, 15,100, 3, playerInRange),
+                () -> new Monster('b', "Bear-Wright", 1000, 75, 30, 250,  4, playerInRange),
+                () -> new Monster('g', "Giant-Wright",1500, 100, 40,500,   5, playerInRange),
+                () -> new Monster('w', "White Walker", 2000, 150, 50, 1000, 6, playerInRange)
 //                () -> new Boss('M', "The Mountain", 1000, 60, 25,  500, 6, 5),
 //                () -> new Boss('C', "Queen Cersei", 100, 10, 10,1000, 1, 8),
 //                () -> new Boss('K', "Night's King", 5000, 300, 150, 5000, 8, 3),
