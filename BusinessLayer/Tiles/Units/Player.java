@@ -32,7 +32,7 @@ public abstract class Player extends Unit{
         msgCallback.send(this.name + "Killed by " + killer.getName());
         msgCallback.send("GAME OVER");
         tile = 'X';
-        //call endGame
+        System.exit(0);
     }
 
     @Override
