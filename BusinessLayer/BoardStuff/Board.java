@@ -93,4 +93,9 @@ public class Board {
             }
         }
     }
+
+    public void reset(){
+        tiles.clear();
+        enemies.clear();
+    }
 }
