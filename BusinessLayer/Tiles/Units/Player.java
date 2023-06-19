@@ -28,8 +28,8 @@ public abstract class Player extends Unit{
 
     @Override
     public void onDeath(Unit killer) {
-        msgCallback.send(this.name + "Killed by " + killer.getName());
-        msgCallback.send("GAME OVER");
+        messageCallback.send(this.name + "was slain by " + killer.getName());
+        messageCallback.send("GAME OVER");
         tile = 'X';
         System.exit(0);
     }
@@ -43,6 +43,19 @@ public abstract class Player extends Unit{
     public void visit(Enemy e) {
         battle(e);
     }
+
+    @Override
+    public void kill(Player player)
+    {
+        //we don't support multiplayer
+    }
+    @Override
+    public void kill(Enemy enemy)
+    {
+        addExp(enemy.getExpVal());
+        enemy.onDeath(this);
+    }
+
 
     public void levelUp(){
         if(xp < lvl*50)
@@ -70,9 +83,10 @@ public abstract class Player extends Unit{
     public abstract void castSpecial();
 
 
+
     public void onGameTick()
     {
-        msgCallback.send("Enter your move:");
+        messageCallback.send("Enter your move:");
         char move = in.next().charAt(0);
         switch (move)
         {

@@ -6,7 +6,7 @@ import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Visitor;
 
 public abstract class Enemy extends Unit{
-    private Integer expVal;
+    private int expVal;
     private boolean isDead;
     protected Enemy(char tile, String name, int healthCapacity, int attack, int defense, int expVal) {
         super(tile, name, healthCapacity, attack, defense);
@@ -37,6 +37,17 @@ public abstract class Enemy extends Unit{
         ;
     }
 
+    @Override
+    public void kill(Player player)
+    {
+        player.onDeath(this);
+    }
+    @Override
+    public void kill(Enemy enemy)
+    {
+        //we don't support necromancy
+    }
+
     public abstract void onGameTick();
 
     @Override
@@ -46,6 +57,11 @@ public abstract class Enemy extends Unit{
 
     public boolean isDead(){
         return this.isDead;
+    }
+
+    public int getExpVal()
+    {
+        return expVal;
     }
 
     @Override

@@ -17,7 +17,6 @@ public class Board {
     private int height;
     private FindTreeSet<Tile> tiles;
     private LinkedList<Enemy> enemies;//dead enemies will remain, use carefully
-
     private Player player;
 
     public Board(int width, int height){
@@ -58,6 +57,7 @@ public class Board {
     }
 
     public void remove(int x, int y) {
+
         tiles.remove(new Empty(x, y));
         tiles.add(new Empty(x, y));
     }

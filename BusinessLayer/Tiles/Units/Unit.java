@@ -7,7 +7,7 @@ import BusinessLayer.Tiles.EnvironmentObjects.Wall;
 import BusinessLayer.Tiles.Tile;
 import FrontEnd.MessageCallback;
 
-public abstract class Unit extends Tile implements Visitor {
+public abstract class Unit extends Tile implements Visitor, Killer{
 	protected String name;
     protected Resource hp;
     protected int attack;
@@ -75,6 +75,8 @@ public abstract class Unit extends Tile implements Visitor {
 
     public abstract void visit(Player p);
     public abstract void visit(Enemy e);
+    public abstract void kill(Player player);
+    public abstract void kill(Enemy enemy);
 
     public void visit(Wall w){
         ;
