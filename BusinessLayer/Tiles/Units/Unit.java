@@ -1,15 +1,10 @@
 package BusinessLayer.Tiles.Units;
 
-import BusinessLayer.BarGenerator;
-import BusinessLayer.Callbacks.EnemiesInRange;
-import BusinessLayer.Callbacks.GetTile;
-import BusinessLayer.Position;
-import BusinessLayer.Resource;
-import BusinessLayer.Callbacks.SwapCallback;
+import BusinessLayer.*;
+import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Tiles.EnvironmentObjects.Wall;
 import BusinessLayer.Tiles.Tile;
-import BusinessLayer.Visitor;
 import FrontEnd.MessageCallback;
 
 public abstract class Unit extends Tile implements Visitor {
@@ -17,10 +12,8 @@ public abstract class Unit extends Tile implements Visitor {
     protected Resource hp;
     protected int attack;
     protected int defense;
-    protected MessageCallback msgCallback;
-    protected SwapCallback swapCallback;
-    protected EnemiesInRange enemiesInRange;
-    protected GetTile getTile;
+    protected BoardCallbacks boardCallbacks;
+    protected MessageCallback messageCallback;
 
     protected static final char UP = 'w';
     protected static final char DOWN = 's';
@@ -37,12 +30,10 @@ public abstract class Unit extends Tile implements Visitor {
         this.defense = defense;
     }
 
-    public void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback, EnemiesInRange enemiesInRange, GetTile getTile){
+    public void initialize(Position position, MessageCallback messageCallback, BoardCallbacks boardCallbacks){
         this.position = position;
-        this.msgCallback = messageCallback;
-        this.swapCallback = swapCallback;
-        this.enemiesInRange = enemiesInRange;
-        this.getTile = getTile;
+        this.boardCallbacks = boardCallbacks;
+        this.messageCallback = messageCallback;
     }
 
     protected void battle(Unit u){
@@ -79,7 +70,7 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     public void visit(Empty e){
-		swapCallback.swap(this, e);
+		boardCallbacks.swap(this, e);
     }
 
     public abstract void visit(Player p);
@@ -117,16 +108,16 @@ public abstract class Unit extends Tile implements Visitor {
         switch (direction)
         {
             case UP:
-                interact(getTile.get(position.getX(), position.getY() - 1));
+                interact(boardCallbacks.getTile(position.getX(), position.getY() - 1));
                 break;
             case DOWN:
-                interact(getTile.get(position.getX(), position.getY() + 1));
+                interact(boardCallbacks.getTile(position.getX(), position.getY() + 1));
                 break;
             case LEFT:
-                interact(getTile.get(position.getX() - 1, position.getY()));
+                interact(boardCallbacks.getTile(position.getX() - 1, position.getY()));
                 break;
             case RIGHT:
-                interact(getTile.get(position.getX() + 1, position.getY()));
+                interact(boardCallbacks.getTile(position.getX() + 1, position.getY()));
                 break;
             default:
         }

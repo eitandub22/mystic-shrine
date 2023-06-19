@@ -1,13 +1,11 @@
 package BusinessLayer.Tiles.Units.Classes;
 
 import BusinessLayer.BarGenerator;
-import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
 
 import java.util.List;
-import java.util.Random;
 
 public class Rogue extends Player {
     Integer cost;
@@ -34,7 +32,7 @@ public class Rogue extends Player {
         }
         else
         {
-            this.msgCallback.send(BarGenerator.Color.RED + "Out of Energy!" + BarGenerator.Color.RESET);
+            this.messageCallback.send(BarGenerator.Color.RED + "Out of Energy!" + BarGenerator.Color.RESET);
         }
     }
 

@@ -1,7 +1,5 @@
 package BusinessLayer.Tiles.Units.Enemies;
 
-import BusinessLayer.Callbacks.GetTile;
-import BusinessLayer.Callbacks.PlayerInRange;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
 

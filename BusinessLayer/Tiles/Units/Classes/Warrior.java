@@ -1,7 +1,6 @@
 package BusinessLayer.Tiles.Units.Classes;
 
 import BusinessLayer.BarGenerator;
-import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
@@ -28,7 +27,7 @@ public class Warrior extends Player {
         }
         else
         {
-            this.msgCallback.send(BarGenerator.Color.RED + "Avenger’s Shield is on cooldown!" + BarGenerator.Color.RESET);
+            this.messageCallback.send(BarGenerator.Color.RED + "Avenger’s Shield is on cooldown!" + BarGenerator.Color.RESET);
         }
     }
 

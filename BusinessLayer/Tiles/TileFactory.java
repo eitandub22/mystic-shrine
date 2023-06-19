@@ -1,9 +1,6 @@
 package BusinessLayer.Tiles;
 
-import BusinessLayer.Callbacks.EnemiesInRange;
-import BusinessLayer.Callbacks.GetTile;
-import BusinessLayer.Callbacks.PlayerInRange;
-import BusinessLayer.Callbacks.SwapCallback;
+import BusinessLayer.BoardStuff.*;
 import BusinessLayer.Position;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Tiles.EnvironmentObjects.Wall;
@@ -28,20 +25,14 @@ public class TileFactory {
     private Map<Character, Supplier<Enemy>> enemiesMap;
     private Player selected;
 
-    private EnemiesInRange enemiesInRange;
-    private GetTile getTile;
-    private PlayerInRange playerInRange;
-    private SwapCallback swapCallback;
+    private BoardCallbacks boardCallbacks;
     private MessageCallback messageCallback;
 
-    public TileFactory(GetTile getTile, EnemiesInRange enemiesInRange, PlayerInRange playerInRange, SwapCallback swapCallback, MessageCallback messageCallback){
+    public TileFactory(BoardCallbacks boardCallbacks, MessageCallback messageCallback){
         playersList = initPlayers();
         enemiesMap = initEnemies();
 
-        this.enemiesInRange = enemiesInRange;
-        this.swapCallback = swapCallback;
-        this.getTile = getTile;
-        this.playerInRange = playerInRange;
+        this.boardCallbacks = boardCallbacks;
         this.messageCallback = messageCallback;
     }
 
@@ -86,13 +77,13 @@ public class TileFactory {
     public Enemy produceEnemy(char tile, Position position) {
         Enemy newEnm = this.enemiesMap.get(tile).get();
         newEnm.setPosition(position);
-        newEnm.initialize(position, messageCallback, swapCallback, enemiesInRange, getTile, playerInRange);
+        newEnm.initialize(position, messageCallback, boardCallbacks);
         return newEnm;
     }
 
     public Player producePlayer(int idx, Position position){
         selected = playersList.get(idx).get();
-        selected.initialize(position, messageCallback, swapCallback, enemiesInRange, getTile);
+        selected.initialize(position, messageCallback, boardCallbacks);
 		return selected;
     }
 

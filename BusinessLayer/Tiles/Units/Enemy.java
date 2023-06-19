@@ -1,21 +1,13 @@
 package BusinessLayer.Tiles.Units;
 
 import BusinessLayer.BarGenerator;
-import BusinessLayer.Callbacks.EnemiesInRange;
-import BusinessLayer.Callbacks.GetTile;
-import BusinessLayer.Callbacks.PlayerInRange;
-import BusinessLayer.Callbacks.SwapCallback;
-import BusinessLayer.Position;
+import BusinessLayer.BoardStuff.PlayerInRange;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Visitor;
-import FrontEnd.MessageCallback;
 
 public abstract class Enemy extends Unit{
     private Integer expVal;
-
-    protected PlayerInRange playerInRange;
     private boolean isDead;
-    protected GetTile getTile;
     protected Enemy(char tile, String name, int healthCapacity, int attack, int defense, int expVal) {
         super(tile, name, healthCapacity, attack, defense);
         this.expVal = expVal;
@@ -30,16 +22,10 @@ public abstract class Enemy extends Unit{
     @Override
     public void onDeath(Unit killer) {
         Empty empty = new Empty(this.position.getX(), this.position.getY());
-        swapCallback.swap(this, empty);
-        swapCallback.swap(empty, killer);
+        boardCallbacks.swap(this, empty);
+        boardCallbacks.swap(empty, killer);
         this.isDead = true;
-        msgCallback.send(String.format("%s was slain!. %s gained %d exp", name, killer.getName(), expVal));
-    }
-
-    public void initialize(Position position, MessageCallback messageCallback, SwapCallback swapCallback, EnemiesInRange enemiesInRange, GetTile getTile, PlayerInRange playerInRange)
-    {
-        super.initialize(position, messageCallback, swapCallback, enemiesInRange, getTile);
-        this.playerInRange = playerInRange;
+        messageCallback.send(String.format("%s was slain!. %s gained %d exp", name, killer.getName(), expVal));
     }
         @Override
     public void visit(Player p) {

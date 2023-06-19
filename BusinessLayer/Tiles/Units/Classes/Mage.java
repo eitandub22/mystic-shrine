@@ -1,7 +1,6 @@
 package BusinessLayer.Tiles.Units.Classes;
 
 import BusinessLayer.BarGenerator;
-import BusinessLayer.Callbacks.EnemiesInRange;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
@@ -46,7 +45,7 @@ public class Mage extends Player {
         }
         else
         {
-            this.msgCallback.send(BarGenerator.Color.RED + "Out of Mana!" + BarGenerator.Color.RESET);
+            this.messageCallback.send(BarGenerator.Color.RED + "Out of Mana!" + BarGenerator.Color.RESET);
         }
     }
 

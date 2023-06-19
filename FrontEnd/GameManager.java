@@ -1,8 +1,11 @@
-package BusinessLayer;
+package FrontEnd;
 
+import BusinessLayer.BoardStuff.Board;
+import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Tiles.TileFactory;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GameManager {
@@ -18,7 +21,7 @@ public class GameManager {
 
     public GameManager(String[] levels) throws IOException {
         List<File> Files = null;
-        TileFactory tileFactory = new TileFactory();
+        LinkedList<Character> tile_chars = new LinkedList<>();
         int width = 0;
         int height = 0;
         if (0 < levels.length) {
@@ -28,16 +31,14 @@ public class GameManager {
                 while ((sCurrentLine = br.readLine()) != null) {
                    height++;
                    for(int j = 0; j < sCurrentLine.length(); j++){
-                        switch (sCurrentLine.charAt(j)){
-                            case PLAYER:
-                                
-                                break;
-                        }
+                       tile_chars.add(sCurrentLine.charAt(j));
                    }
                 }
                 height = sCurrentLine.length();
             }
             board = new Board(width, height);
+            TileFactory tileFactory = new TileFactory(new BoardCallbacks(board), );
+
         }
         else {
             System.err.println("Invalid arguments count:" + levels.length);

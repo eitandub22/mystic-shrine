@@ -1,10 +1,9 @@
 package BusinessLayer.Tiles.Units;
 
 import BusinessLayer.BarGenerator;
-import BusinessLayer.Callbacks.EnemiesInRange;
+import BusinessLayer.BoardStuff.EnemiesInRange;
 import BusinessLayer.Visitor;
 
-import java.awt.*;
 import java.util.Scanner;
 
 public abstract class Player extends Unit{

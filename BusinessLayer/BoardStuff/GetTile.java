@@ -1,4 +1,4 @@
-package BusinessLayer.Callbacks;
+package BusinessLayer.BoardStuff;
 
 import BusinessLayer.Tiles.Tile;
 
