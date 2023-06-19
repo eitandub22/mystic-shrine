@@ -11,6 +11,7 @@ import java.util.List;
 public class GameManager {
 
     private Board board;
+    private TileFactory tileFactory;
 
     private final char PLAYER = '@';
 
@@ -37,7 +38,11 @@ public class GameManager {
                 height = sCurrentLine.length();
             }
             board = new Board(width, height);
-            TileFactory tileFactory = new TileFactory(new BoardCallbacks(board), );
+
+            //when making cli change
+            tileFactory = new TileFactory(new BoardCallbacks(board), null);
+
+            
 
         }
         else {

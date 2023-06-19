@@ -16,7 +16,7 @@ public class Board {
     private int width;
     private int height;
     private FindTreeSet<Tile> tiles;
-    private LinkedList<Enemy> enemies;
+    private LinkedList<Enemy> enemies;//dead enemies will remain, use carefully
 
     private Player player;
 
@@ -88,7 +88,9 @@ public class Board {
         player.onGameTick();
         for(Enemy enemy : enemies)
         {
-            enemy.onGameTick();
+            if(!enemy.isDead()) {
+                enemy.onGameTick();
+            }
         }
     }
 }
