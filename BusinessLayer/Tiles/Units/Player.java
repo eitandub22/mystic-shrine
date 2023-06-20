@@ -6,7 +6,7 @@ import BusinessLayer.Visitor;
 
 import java.util.Scanner;
 
-public abstract class Player extends Unit{
+public abstract class Player extends Unit implements HeroicUnit{
     protected Integer xp;
     protected Integer lvl;
     private Scanner in;
@@ -26,34 +26,33 @@ public abstract class Player extends Unit{
 
     }
 
+
     @Override
-    public void onDeath(Unit killer) {
+    public void kill(Mortal victim)
+    {
+        victim.onDeath(this);
+    }
+    @Override
+    public void onDeath(Enemy killer) {
         messageCallback.send(this.name + "was slain by " + killer.getName());
         messageCallback.send("GAME OVER");
         tile = 'X';
-        System.exit(0);
+        System.exit(0);//change to deathcallback
+    }
+    @Override
+    public void onDeath(Player player)
+    {
+        ;
     }
 
     @Override
     public void visit(Player p) {
-        //we don't have multiplayer!;
+        ;
     }
 
     @Override
     public void visit(Enemy e) {
         battle(e);
-    }
-
-    @Override
-    public void kill(Player player)
-    {
-        //we don't support multiplayer
-    }
-    @Override
-    public void kill(Enemy enemy)
-    {
-        addExp(enemy.getExpVal());
-        enemy.onDeath(this);
     }
 
 
@@ -81,6 +80,10 @@ public abstract class Player extends Unit{
     }
 
     public abstract void castSpecial();
+    @Override
+    public void castAbility() {
+        castSpecial();
+    }
 
 
 

@@ -7,7 +7,7 @@ import BusinessLayer.Tiles.EnvironmentObjects.Wall;
 import BusinessLayer.Tiles.Tile;
 import FrontEnd.MessageCallback;
 
-public abstract class Unit extends Tile implements Visitor, Killer{
+public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
 	protected String name;
     protected Resource hp;
     protected int attack;
@@ -46,7 +46,7 @@ public abstract class Unit extends Tile implements Visitor, Killer{
         this.hp.takeAmount(dmg);
         if(hp.getCurrAmount() <= 0)
         {
-            onDeath(attacker);
+            attacker.kill(this);
         }
     }
 
@@ -62,7 +62,9 @@ public abstract class Unit extends Tile implements Visitor, Killer{
     public abstract void processStep();
 	
 	// What happens when the unit dies
-    public abstract void onDeath(Unit killer);
+    public abstract void onDeath(Player killer);
+    public abstract void onDeath(Enemy killer);
+    public abstract void kill(Mortal victim);
 
 	// This unit attempts to interact with another tile.
     public void interact(Tile tile){
@@ -75,8 +77,6 @@ public abstract class Unit extends Tile implements Visitor, Killer{
 
     public abstract void visit(Player p);
     public abstract void visit(Enemy e);
-    public abstract void kill(Player player);
-    public abstract void kill(Enemy enemy);
 
     public void visit(Wall w){
         ;
