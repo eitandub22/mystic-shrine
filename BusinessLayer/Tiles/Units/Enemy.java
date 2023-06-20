@@ -19,13 +19,25 @@ public abstract class Enemy extends Unit{
 
     }
 
+
     @Override
-    public void onDeath(Unit killer) {
+    public void kill(Mortal victim)
+    {
+        victim.onDeath(this);
+    }
+    @Override
+    public void onDeath(Enemy killer) {
+        ;
+    }
+    @Override
+    public void onDeath(Player killer)
+    {
         Empty empty = new Empty(this.position.getX(), this.position.getY());
         boardCallbacks.swap(this, empty);
         boardCallbacks.swap(empty, killer);
         this.isDead = true;
         messageCallback.send(String.format("%s was slain!. %s gained %d exp", name, killer.getName(), expVal));
+        killer.addExp(expVal);
     }
         @Override
     public void visit(Player p) {
@@ -35,17 +47,6 @@ public abstract class Enemy extends Unit{
     @Override
     public void visit(Enemy e) {
         ;
-    }
-
-    @Override
-    public void kill(Player player)
-    {
-        player.onDeath(this);
-    }
-    @Override
-    public void kill(Enemy enemy)
-    {
-        //we don't support necromancy
     }
 
     public abstract void onGameTick();
