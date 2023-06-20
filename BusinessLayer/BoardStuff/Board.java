@@ -65,8 +65,11 @@ public class Board {
     @Override
     public String toString() {
         tiles = (FindTreeSet<Tile>) tiles.stream().sorted().collect(Collectors.toList());
-        // TODO: Implement me
-        return "";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Tile t: tiles) {
+            stringBuilder.append(t.toString());
+        }
+        return stringBuilder.toString();
     }
 
     public void swap(Tile t1, Tile t2)

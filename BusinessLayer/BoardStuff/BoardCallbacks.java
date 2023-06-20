@@ -2,6 +2,7 @@ package BusinessLayer.BoardStuff;
 
 import BusinessLayer.Tiles.Tile;
 import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Player;
 
 import java.util.List;
 
@@ -30,6 +31,10 @@ public class BoardCallbacks {
     public List<Enemy> enemiesInRange(Tile start, int range)
     {
         return enemiesInRange.get(start,range);
+    }
+
+    public Player playerInRange(Tile start, int range){
+        return playerInRange.get(start, range);
     }
 
 }

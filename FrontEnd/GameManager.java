@@ -24,6 +24,7 @@ public class GameManager {
 
     public GameManager(String[] levels) throws IOException {
         List<File> Files = null;
+        levelsStrings = new LinkedList<>();
         int width = 0;
         int height = 0;
         if (0 < levels.length) {
@@ -37,8 +38,8 @@ public class GameManager {
                        levelsStrings.get(i).put(new Position(i,j), sCurrentLine.charAt(j));
                    }
                 }
+                height = sCurrentLine.length();
             }
-            height = sCurrentLine.length();
             board = new Board(width, height);
 
             //when making cli change
@@ -71,5 +72,9 @@ public class GameManager {
                     break;
             }
         }
+    }
+
+    public Board getBoard(){
+        return board;
     }
 }

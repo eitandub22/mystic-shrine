@@ -21,7 +21,7 @@ public class Trap extends Enemy {
     public void onGameTick() {
         this.ticks++;
         sortVisibility();
-        Player player = playerInRange.get(this, 2);
+        Player player = boardCallbacks.playerInRange(this, 2);
         if(player != null)
         {
             player.takeDmg(this.attack, this);

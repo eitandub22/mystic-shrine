@@ -16,7 +16,7 @@ public class Monster extends Enemy {
     public void onGameTick() {
         int dx = 0;
         int dy = 0;
-        Player p = playerInRange.get(this, visionRange);
+        Player p = boardCallbacks.playerInRange(this, visionRange);
         if(p != null){
             dx = this.getPosition().getX() - p.getPosition().getX();
             dy = this.getPosition().getY() - p.getPosition().getY();
