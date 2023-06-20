@@ -6,7 +6,7 @@ import BusinessLayer.Visitor;
 
 import java.util.Scanner;
 
-public abstract class Player extends Unit{
+public abstract class Player extends Unit implements HeroicUnit{
     protected Integer xp;
     protected Integer lvl;
     private Scanner in;
@@ -80,6 +80,10 @@ public abstract class Player extends Unit{
     }
 
     public abstract void castSpecial();
+    @Override
+    public void castAbility() {
+        castSpecial();
+    }
 
 
 
