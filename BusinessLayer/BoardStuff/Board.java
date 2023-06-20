@@ -8,8 +8,10 @@ import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
 import BusinessLayer.Tiles.Tile;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Board {
@@ -64,10 +66,20 @@ public class Board {
 
     @Override
     public String toString() {
-        tiles = (FindTreeSet<Tile>) tiles.stream().sorted().collect(Collectors.toList());
         StringBuilder stringBuilder = new StringBuilder();
+        List<Tile> sorted = new LinkedList<>();
         for (Tile t: tiles) {
+            sorted.add(t);
+        }
+        Collections.sort(sorted, new TilePosComperator());
+        int counter = 0;
+        for (Tile t: sorted) {
+            if(counter == width){
+                stringBuilder.append('\n');
+                counter = 0;
+            }
             stringBuilder.append(t.toString());
+            counter++;
         }
         return stringBuilder.toString();
     }

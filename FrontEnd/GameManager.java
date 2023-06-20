@@ -33,12 +33,12 @@ public class GameManager {
                 levelsStrings.add(new Hashtable<>());
                 BufferedReader br = new BufferedReader(new FileReader(new File(levels[i])));
                 while ((sCurrentLine = br.readLine()) != null) {
-                   height++;
                    for(int j = 0; j < sCurrentLine.length(); j++){
-                       levelsStrings.get(i).put(new Position(i,j), sCurrentLine.charAt(j));
+                       levelsStrings.get(i).put(new Position(j,height), sCurrentLine.charAt(j));
                    }
+                    height++;
+                    width = sCurrentLine.length();
                 }
-                height = sCurrentLine.length();
             }
             board = new Board(width, height);
 

@@ -5,12 +5,12 @@ import BusinessLayer.Tiles.TileFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class main {
     public static void main(String[] args) throws IOException {
-        String[] levels = new String[]{"level1.txt"};
-        GameManager gameManager = new GameManager(levels);
-        gameManager.createLevel(1, 1);
+        GameManager gameManager = new GameManager(args);
+        gameManager.createLevel(0, 1);
         Board board = gameManager.getBoard();
         System.out.println(board.toString());
     }
