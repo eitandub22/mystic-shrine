@@ -15,12 +15,6 @@ public abstract class Enemy extends Unit{
     }
 
     @Override
-    public void processStep() {
-
-    }
-
-
-    @Override
     public void kill(Mortal victim)
     {
         victim.onDeath(this);

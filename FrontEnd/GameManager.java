@@ -54,7 +54,7 @@ public class GameManager {
                 width = 0;
             }
             board = boards.get(currLvl);
-            tileFactory = new TileFactory(new BoardCallbacks(board), null);
+            tileFactory = new TileFactory(new BoardCallbacks(board), m);
         }
         else {
             System.err.println("Invalid arguments count:" + levels.length);
@@ -85,10 +85,6 @@ public class GameManager {
             }
         }
         currLvl++;
-    }
-
-    public Board getBoard(){
-        return board;
     }
 
     public TileFactory getFactory() {

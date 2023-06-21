@@ -108,14 +108,14 @@ public abstract class Player extends Unit implements HeroicUnit{
     public void onGameTick()
     {
         messageCallback.send("Enter your move:");
-        char move = inputReader.read().charAt(0);
-        switch (move)
+        char PlrMove = inputReader.read().charAt(0);
+        switch (PlrMove)
         {
             case SPECIAL:
                 castSpecial();
                 break;
             default:
-                move(move);
+                move(PlrMove);
         }
     }
 

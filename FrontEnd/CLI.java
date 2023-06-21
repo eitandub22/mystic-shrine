@@ -21,7 +21,7 @@ public class CLI {
         r = () -> readLine();
         gameManager = new GameManager(levelsDir, m);
         sc = new Scanner(System.in);
-        TileFactory tileFactory = gameManager.getFactory();
+        tileFactory = gameManager.getFactory();
     }
 
     private void displayMessage(String m) {
@@ -34,9 +34,10 @@ public class CLI {
         tileFactory.showPlayers(m);
         int i = 0;
         do {
-            System.out.println("Select a player");
+            System.out.print("Select a player: ");
             i = sc.nextInt();
         }while(!isValid(i));
+        sc.nextLine();
         Player p = tileFactory.producePlayer(i);
         p.initializeReader(r);
         gameManager.initPlayer(p);
