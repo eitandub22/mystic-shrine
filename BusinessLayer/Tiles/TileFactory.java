@@ -11,6 +11,7 @@ import BusinessLayer.Tiles.Units.Enemies.Monster;
 import BusinessLayer.Tiles.Units.Enemies.Trap;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
+import FrontEnd.InputReader;
 import FrontEnd.MessageCallback;
 
 import java.util.Arrays;
@@ -34,11 +35,6 @@ public class TileFactory {
 
         this.boardCallbacks = boardCallbacks;
         this.messageCallback = messageCallback;
-    }
-
-    public TileFactory(){
-        playersList = initPlayers();
-        enemiesMap = initEnemies();
     }
 
     private Map<Character, Supplier<Enemy>> initEnemies() {
@@ -103,4 +99,9 @@ public class TileFactory {
         return new Wall(position.getX(), position.getY());
     }
 
+    public void showPlayers(MessageCallback m){
+        for (Supplier<Player> p: playersList) {
+            m.send(p.get().describe());
+        }
+    }
 }

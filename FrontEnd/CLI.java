@@ -1,6 +1,7 @@
 package FrontEnd;
 
 import BusinessLayer.BoardStuff.BoardCallbacks;
+import BusinessLayer.Tiles.Tile;
 import BusinessLayer.Tiles.TileFactory;
 import BusinessLayer.Tiles.Units.Player;
 
@@ -25,9 +26,10 @@ public class CLI {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
-    public Player getPlayer(){
+    public void getPlayer(){
         System.out.println("Select a player");
-        return null;
+        TileFactory tileFactory = gameManager.getFactory();
+        tileFactory.showPlayers(m);
     }
 
 }
