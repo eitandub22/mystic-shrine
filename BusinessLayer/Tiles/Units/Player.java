@@ -44,21 +44,19 @@ public abstract class Player extends Unit implements HeroicUnit{
 
 
     public void levelUp(){
-        if(xp < lvl*50)
+        while(xp > lvl*50)
         {
-            return;
+            fronEndCallbacks.displayMessage("HP: " + hp.getPool() + " -> " + (hp.getPool()+gainedHP()));
+            fronEndCallbacks.displayMessage("Atk: " + attack + " -> " + (attack+gainedAttack()));
+            fronEndCallbacks.displayMessage("Defence: " + defense + " -> " + (defense+gainedDefence()));
+
+            xp -= 50*lvl;
+            lvl++;
+            hp.updatePool(hp.getPool() + gainedHP());
+            hp.addAmount(hp.getPool());
+            attack += gainedAttack();
+            defense += gainedDefence();
         }
-
-        fronEndCallbacks.displayMessage("HP: " + hp.getPool() + " -> " + (hp.getPool()+gainedHP()));
-        fronEndCallbacks.displayMessage("Atk: " + attack + " -> " + (attack+gainedAttack()));
-        fronEndCallbacks.displayMessage("Defence: " + defense + " -> " + (defense+gainedDefence()));
-
-        xp -= 50*lvl;
-        lvl++;
-        hp.updatePool(hp.getPool() + gainedHP());
-        hp.addAmount(hp.getPool());
-        attack += gainedAttack();
-        defense += gainedDefence();
     }
 
     public int gainedAttack()
