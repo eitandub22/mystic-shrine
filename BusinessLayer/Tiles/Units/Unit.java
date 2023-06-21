@@ -121,4 +121,6 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
         }
         return true;
     }
+
+    public abstract void onGameTick();
 }

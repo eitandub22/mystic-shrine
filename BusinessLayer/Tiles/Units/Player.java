@@ -97,12 +97,6 @@ public abstract class Player extends Unit implements HeroicUnit{
         visitor.visit(this);
     }
 
-    public abstract void castSpecial();
-    @Override
-    public void castAbility() {
-        castSpecial();
-    }
-
 
 
     public void onGameTick()
