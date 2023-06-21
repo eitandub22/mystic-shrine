@@ -56,8 +56,8 @@ public class Mage extends Player {
 
     @Override
     public void levelUp(){
-        fronEndCallbacks.displayMessage("Mana: " + mana.getPool() + " -> " + mana.getPool() + gainedMana());
-        fronEndCallbacks.displayMessage("SpellPower: " + spellPow + " -> " + spellPow + gainedSpellPow());
+        fronEndCallbacks.displayMessage("Mana: " + mana.getPool() + " -> " + (mana.getPool() + gainedMana()));
+        fronEndCallbacks.displayMessage("SpellPower: " + spellPow + " -> " + (spellPow + gainedSpellPow()));
 
         mana.updatePool(mana.getPool() + gainedMana());
         mana.addAmount(mana.getPool()/4);

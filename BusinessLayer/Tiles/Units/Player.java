@@ -49,9 +49,9 @@ public abstract class Player extends Unit implements HeroicUnit{
             return;
         }
 
-        fronEndCallbacks.displayMessage("HP: " + hp.getPool() + " -> " + hp.getPool()+gainedHP());
-        fronEndCallbacks.displayMessage("Atk: " + attack + " -> " + attack+gainedHP());
-        fronEndCallbacks.displayMessage("Defence: " + defense + " -> " + defense+gainedHP());
+        fronEndCallbacks.displayMessage("HP: " + hp.getPool() + " -> " + (hp.getPool()+gainedHP()));
+        fronEndCallbacks.displayMessage("Atk: " + attack + " -> " + (attack+gainedAttack()));
+        fronEndCallbacks.displayMessage("Defence: " + defense + " -> " + (defense+gainedDefence()));
 
         xp -= 50*lvl;
         lvl++;
@@ -89,6 +89,7 @@ public abstract class Player extends Unit implements HeroicUnit{
 
     public void onGameTick()
     {
+        fronEndCallbacks.displayMessage(describe());
         char playerMove = 'E';
         boolean moved = false;
         String line = "";
@@ -111,5 +112,11 @@ public abstract class Player extends Unit implements HeroicUnit{
     public String toString()
     {
         return BarGenerator.Color.GREEN + super.toString() + BarGenerator.Color.RESET;
+    }
+
+    @Override
+    public String describe(){
+
+        return String.format(super.describe() + "\t\tLevel: %d\n\t\tExperience: %d/%d", lvl, xp, lvl*50);
     }
 }

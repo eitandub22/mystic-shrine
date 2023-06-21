@@ -78,7 +78,7 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     public abstract void visit(Enemy e);
 
     public String describe() {
-        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
+        return String.format("%s\t\tHealth: %s/%s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), hp.getPool(), getAttack(), getDefense());
     }
 
     public String getName()
