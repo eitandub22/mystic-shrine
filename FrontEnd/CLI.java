@@ -13,23 +13,27 @@ public class CLI {
     private InputReader r;
     private GameManager gameManager;
 
+    private Scanner sc;
+
     public CLI(String levelsDir) throws IOException {
         m = (String message) -> displayMessage(message);
         r = () -> readLine();
         gameManager = new GameManager(levelsDir);
+        sc = new Scanner(System.in);
     }
 
     private void displayMessage(String m) {
         System.out.println(m);
     }
     private String readLine(){
-        Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
     public void getPlayer(){
-        System.out.println("Select a player");
         TileFactory tileFactory = gameManager.getFactory();
         tileFactory.showPlayers(m);
+        do {
+            System.out.println("Select a player");
+        }while();
     }
 
 }

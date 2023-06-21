@@ -85,8 +85,8 @@ public class TileFactory {
         return newEnm;
     }
 
-    public Player producePlayer(int idx, Position position){
-        selected = playersList.get(idx).get();
+    public Player producePlayer(int chosenChar, Position position){
+        selected = playersList.get(chosenChar).get();
         selected.initialize(position, messageCallback, boardCallbacks);
 		return selected;
     }
