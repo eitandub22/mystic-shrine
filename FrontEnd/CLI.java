@@ -13,13 +13,15 @@ public class CLI {
     private InputReader r;
     private GameManager gameManager;
 
+    private TileFactory tileFactory;
     private Scanner sc;
 
     public CLI(String levelsDir) throws IOException {
         m = (String message) -> displayMessage(message);
         r = () -> readLine();
-        gameManager = new GameManager(levelsDir);
+        gameManager = new GameManager(levelsDir, m);
         sc = new Scanner(System.in);
+        TileFactory tileFactory = gameManager.getFactory();
     }
 
     private void displayMessage(String m) {
@@ -29,11 +31,24 @@ public class CLI {
         return sc.nextLine();
     }
     public void getPlayer(){
-        TileFactory tileFactory = gameManager.getFactory();
         tileFactory.showPlayers(m);
+        int i = 0;
         do {
             System.out.println("Select a player");
-        }while();
+            i = sc.nextInt();
+        }while(!isValid(i));
+        Player p = tileFactory.producePlayer(i);
+        p.initializeReader(r);
+        gameManager.initPlayer(p);
+        gameManager.createLevel(0);
+        gameManager.startGame();
+    }
+
+    private boolean isValid(int i){
+        int numPlayers = tileFactory.numberOfPlayers();
+        if(i > numPlayers + 1 || numPlayers <= 0){
+            return false;
+        }  else return true;
     }
 
 }

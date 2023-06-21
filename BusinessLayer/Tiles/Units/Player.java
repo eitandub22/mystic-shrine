@@ -4,13 +4,14 @@ import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.EnemiesInRange;
 import BusinessLayer.Visitor;
 import FrontEnd.MessageCallback;
+import FrontEnd.InputReader;
 
 import java.util.Scanner;
 
 public abstract class Player extends Unit implements HeroicUnit{
     protected Integer xp;
     protected Integer lvl;
-    private Scanner in;
+    private InputReader inputReader;
 
     protected static final char SPECIAL = 'e';
 
@@ -19,7 +20,10 @@ public abstract class Player extends Unit implements HeroicUnit{
         super('@', name, healthCapacity, attack, defense);
         xp = 0;
         lvl = 1;
-        in = new Scanner(System.in);
+    }
+
+    public void initializeReader(InputReader inputReader){
+        this.inputReader = inputReader;
     }
 
     @Override
@@ -104,7 +108,7 @@ public abstract class Player extends Unit implements HeroicUnit{
     public void onGameTick()
     {
         messageCallback.send("Enter your move:");
-        char move = in.next().charAt(0);
+        char move = inputReader.read().charAt(0);
         switch (move)
         {
             case SPECIAL:
