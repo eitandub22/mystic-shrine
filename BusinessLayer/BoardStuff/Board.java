@@ -112,4 +112,11 @@ public class Board {
         return player;
     }
 
+    public boolean cleared(){
+        for (Enemy e: enemies) {
+            if(!e.isDead()) return false;
+        }
+        return true;
+    }
+
 }

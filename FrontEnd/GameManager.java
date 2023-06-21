@@ -22,11 +22,14 @@ public class GameManager {
 
     private List<Dictionary<Position, Character>> levelsStrings;
 
+    public MessageCallback m;
     private List<Board> boards;
     private int currLvl;
+    private Player player;
 
-    public GameManager(String levelsDir) throws IOException {
+    public GameManager(String levelsDir, MessageCallback m) throws IOException {
         List<File> Files = null;
+        this.m = m;
         levelsStrings = new LinkedList<>();
         currLvl = 0;
         boards = new LinkedList<>();
@@ -59,9 +62,7 @@ public class GameManager {
         }
     }
 
-    public void createLevel(int i, int plrInx){
-        Player p = null;
-        p = board.getPlayer();
+    public void createLevel(int i){
         board = boards.get(i);
         Dictionary<Position, Character> currLevel = levelsStrings.get(i);
         Enumeration<Position> k = currLevel.keys();
@@ -69,13 +70,8 @@ public class GameManager {
             Position key = k.nextElement();
             switch (currLevel.get(key)){
                 case PLAYER:
-                    if(p == null){
-                        board.add(tileFactory.producePlayer(plrInx, key));
-                    }
-                    else{
-                        p.setPosition(key);
-                        board.add(p);
-                    }
+                    tileFactory.initializePlayer(player, key);
+                    board.add(player);
                     break;
                 case WALL:
                     board.add(tileFactory.produceWall(key));
@@ -97,5 +93,19 @@ public class GameManager {
 
     public TileFactory getFactory() {
         return tileFactory;
+    }
+
+    public void startGame() {
+        while(board.getPlayer().getHealth() > 0){
+            m.send(board.toString());
+            if(board.cleared()){
+                createLevel(currLvl);
+            }
+            board.tick();
+        }
+    }
+
+    public void initPlayer(Player p){
+        player = p;
     }
 }

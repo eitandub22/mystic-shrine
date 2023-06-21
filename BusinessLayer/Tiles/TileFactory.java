@@ -85,10 +85,13 @@ public class TileFactory {
         return newEnm;
     }
 
-    public Player producePlayer(int chosenChar, Position position){
+    public Player producePlayer(int chosenChar){
         selected = playersList.get(chosenChar).get();
-        selected.initialize(position, messageCallback, boardCallbacks);
 		return selected;
+    }
+
+    public void initializePlayer(Player selected, Position position){
+        selected.initialize(position, messageCallback, boardCallbacks);
     }
 
     public Empty produceEmpty(Position position){
@@ -103,5 +106,9 @@ public class TileFactory {
         for (Supplier<Player> p: playersList) {
             m.send(p.get().describe());
         }
+    }
+
+    public int numberOfPlayers(){
+        return playersList.size();
     }
 }
