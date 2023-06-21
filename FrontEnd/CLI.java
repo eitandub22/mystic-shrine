@@ -32,22 +32,22 @@ public class CLI {
     }
     public void getPlayer(){
         tileFactory.showPlayers(m);
-        int i = 0;
+        char i;
         do {
             System.out.print("Select a player: ");
-            i = sc.nextInt();
+            i = sc.nextLine().charAt(0);
         }while(!isValid(i));
-        sc.nextLine();
-        Player p = tileFactory.producePlayer(i);
+        Player p = tileFactory.producePlayer(Character.getNumericValue(i));
         p.initializeReader(r);
         gameManager.initPlayer(p);
         gameManager.createLevel(0);
         gameManager.startGame();
     }
 
-    private boolean isValid(int i){
+    private boolean isValid(char i){
         int numPlayers = tileFactory.numberOfPlayers();
-        if(i > numPlayers + 1 || numPlayers <= 0){
+        if(!Character.isDigit(i)) return false;
+        if(Character.getNumericValue(i) > numPlayers + 1 || Character.getNumericValue(i) <= 0){
             return false;
         }  else return true;
     }
