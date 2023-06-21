@@ -14,8 +14,4 @@ public class Wall extends Tile {
         visitor.visit(this);
     }
 
-    @Override
-    public void onGameTick() {
-
-    }
 }
