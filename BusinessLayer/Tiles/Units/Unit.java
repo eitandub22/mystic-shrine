@@ -10,12 +10,13 @@ import FrontEnd.FronEndCallbacks;
 import FrontEnd.MessageCallback;
 
 public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
-	protected String name;
+    protected String name;
     protected Resource hp;
     protected int attack;
     protected int defense;
     protected BoardCallbacks boardCallbacks;
     protected FronEndCallbacks fronEndCallbacks;
+    protected double pierce;//hidden stat, because we need some
 
     protected static final char UP = 'w';
     protected static final char DOWN = 's';
@@ -32,6 +33,7 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
         this.hp.addAmount(healthCapacity);
         this.attack = attack;
         this.defense = defense;
+        this.pierce = 0;
     }
 
     public void initialize(Position position, FronEndCallbacks fronEndCallbacks, BoardCallbacks boardCallbacks){
@@ -41,14 +43,20 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     }
 
     protected void battle(Unit u){
-        u.takeDmg(rollAttack(), this);
+        fronEndCallbacks.displayMessage(getName() + " VS. " + u.getName());
+        fronEndCallbacks.displayMessage(describe());
+        fronEndCallbacks.displayMessage(u.describe());
+
+        int atk = rollAttack();
+        fronEndCallbacks.displayMessage(getName() + " Rolled " + atk + " ATTACK!");
+        u.takeDmg(atk, this);
     }
 
     public void takeDmg(int atk, Unit attacker){
         int def = rollDefence();
-        int dmg = Math.max(atk - def, 0);
+        int dmg = Math.max(atk - (int)((1-pierce) * def), 0);
         this.hp.takeAmount(dmg);
-        fronEndCallbacks.displayMessage(attacker.getName() + " attacked " + this.getName() + " and dealt " + dmg);
+        fronEndCallbacks.displayMessage(getName() + " ROLLED " + def + " DEFENCE and took " + dmg +" DMG from " + attacker.getName() + "\n");
         if(hp.getCurrAmount() <= 0)
         {
             attacker.kill(this);
@@ -62,13 +70,13 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
         return (int)(Math.random() * (getDefense() + 1));
     }
 
-	// This unit attempts to interact with another tile.
+    // This unit attempts to interact with another tile.
     public void interact(Tile tile){
-		tile.accept(this);
+        tile.accept(this);
     }
 
     public void visit(Empty e){
-		boardCallbacks.swap(this, e);
+        boardCallbacks.swap(this, e);
     }
     public void visit(Wall w){
         ;

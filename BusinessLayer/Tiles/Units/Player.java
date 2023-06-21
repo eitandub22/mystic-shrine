@@ -71,6 +71,7 @@ public abstract class Player extends Unit implements HeroicUnit{
         hp.addAmount(hp.getPool());
         attack += gainedAttack();
         defense += gainedDefence();
+        pierce = Math.min(pierce + gainedPierce(), 1);
     }
 
     public int gainedAttack()
@@ -84,6 +85,9 @@ public abstract class Player extends Unit implements HeroicUnit{
     public int gainedDefence()
     {
         return lvl;
+    }
+    public double gainedPierce(){
+        return 0;
     }
 
 

@@ -12,11 +12,13 @@ public class Rogue extends Player {
 
     Resource energy;
 
+
     private final Integer MAX_AMOUNT = 100;
 
     public Rogue(String name, int healthCapacity, int attack, int defense, Integer cost) {
         super(name, healthCapacity, attack, defense);
         this.cost = cost;
+        this.pierce = 0.1;
         energy = new Resource(MAX_AMOUNT);
         energy.addAmount(MAX_AMOUNT);
     }
@@ -55,7 +57,14 @@ public class Rogue extends Player {
     }
 
     @Override
+    public double gainedPierce()
+    {
+        return 0.05;
+    }
+
+
+    @Override
     public String describe(){
-        return String.format(super.describe() + "\t\tEnergy: %d/%d", energy.getCurrAmount(), energy.getPool());
+        return String.format(super.describe() + "  Energy: %d/%d", energy.getCurrAmount(), energy.getPool());
     }
 }

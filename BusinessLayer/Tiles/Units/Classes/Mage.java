@@ -76,7 +76,7 @@ public class Mage extends Player {
 
     @Override
     public String describe(){
-        return String.format(super.describe() + "\t\tMana: %d/%d\t\tSpell Power: %d", mana.getCurrAmount(), mana.getPool(), spellPow);
+        return String.format(super.describe() + "  Mana: %d/%d Spell Power: %d", mana.getCurrAmount(), mana.getPool(), spellPow);
     }
 
     private boolean enemiesGone(List<Enemy> enemyList){

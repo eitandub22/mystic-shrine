@@ -25,7 +25,9 @@ public class Warrior extends Player {
             if(enemyList.size() > 0) {
                 Random rand = new Random();
                 Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
-                randomEnemy.takeDmg(hp.getPool() / 10, this);
+                int dmg = hp.getPool() / 10;
+                fronEndCallbacks.displayMessage("Avengers Shield! deal" + dmg + "DMG");
+                randomEnemy.takeDmg(dmg, this);
             }
         }
         else
@@ -58,7 +60,7 @@ public class Warrior extends Player {
 
     @Override
     public String describe(){
-        return String.format(super.describe() + "\t\tCooldown: %d/%d", cooldown.getCurrAmount(), cooldown.getPool());
+        return String.format(super.describe() + "  Cooldown: %d/%d", cooldown.getCurrAmount(), cooldown.getPool());
     }
 
     @Override
