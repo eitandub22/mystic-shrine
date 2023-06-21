@@ -25,7 +25,7 @@ public class GameManager {
     private List<Board> boards;
     private int currLvl;
 
-    public GameManager(String levelsDir, int ind) throws IOException {
+    public GameManager(String levelsDir) throws IOException {
         List<File> Files = null;
         levelsStrings = new LinkedList<>();
         currLvl = 0;
@@ -52,7 +52,6 @@ public class GameManager {
             }
             board = boards.get(currLvl);
             tileFactory = new TileFactory(new BoardCallbacks(board), null);
-            createLevel(currLvl, ind);
         }
         else {
             System.err.println("Invalid arguments count:" + levels.length);

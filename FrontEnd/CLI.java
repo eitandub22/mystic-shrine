@@ -4,17 +4,18 @@ import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Tiles.TileFactory;
 import BusinessLayer.Tiles.Units.Player;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CLI {
     private MessageCallback m;
     private InputReader r;
+    private GameManager gameManager;
 
-    private BoardCallbacks boardCallbacks;
-
-    public CLI(){
+    public CLI(String levelsDir) throws IOException {
         m = (String message) -> displayMessage(message);
         r = () -> readLine();
+        gameManager = new GameManager(levelsDir);
     }
 
     private void displayMessage(String m) {
@@ -26,7 +27,7 @@ public class CLI {
     }
     public Player getPlayer(){
         System.out.println("Select a player");
-        TileFactory tileFactory = new TileFactory();
+        return null;
     }
 
 }

@@ -36,6 +36,11 @@ public class TileFactory {
         this.messageCallback = messageCallback;
     }
 
+    public TileFactory(){
+        playersList = initPlayers();
+        enemiesMap = initEnemies();
+    }
+
     private Map<Character, Supplier<Enemy>> initEnemies() {
         List<Supplier<Enemy>> enemies = Arrays.asList(
                 () -> new Monster('s', "Lannister Solider", 80, 8, 3,25, 3),
@@ -97,4 +102,5 @@ public class TileFactory {
     public Wall produceWall(Position position){
         return new Wall(position.getX(), position.getY());
     }
+
 }
