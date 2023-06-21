@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Tiles.Tile;
 import BusinessLayer.Tiles.TileFactory;
@@ -20,7 +21,7 @@ public class CLI {
     public CLI(String levelsDir) throws IOException {
         m = this::displayMessage;
         r = this::readLine;
-        gameManager = new GameManager(levelsDir, new FronEndCallbacks(this));
+        gameManager = new GameManager(levelsDir, new FronEndCallbacks(this), this::endGame);
         sc = new Scanner(System.in);
         tileFactory = gameManager.getFactory();
     }
@@ -40,18 +41,26 @@ public class CLI {
             line = sc.nextLine();
             i = line.length() > 0 ? line.charAt(0) : 0;
         }while(!isValid(i));
-        Player p = tileFactory.producePlayer(Character.getNumericValue(i));
+        Player p = tileFactory.producePlayer(Character.getNumericValue(i) - 1);
         gameManager.initPlayer(p);
-        gameManager.createLevel(0);
+        gameManager.initLevel(0);
         gameManager.startGame();
     }
 
-    private boolean isValid(char i){
+    private boolean isValid(char i) {
         int numPlayers = tileFactory.numberOfPlayers();
-        if(!Character.isDigit(i)) return false;
-        if(Character.getNumericValue(i) > numPlayers + 1 || Character.getNumericValue(i) <= 0){
+        if (!Character.isDigit(i)) return false;
+        if (Character.getNumericValue(i) > numPlayers + 1 || Character.getNumericValue(i) <= 0) {
             return false;
-        }  else return true;
+        } else return true;
     }
 
+    public void endGame()
+    {
+        displayMessage(gameManager.boardString());
+        displayMessage(BarGenerator.Color.RED + "YOU DIED" + BarGenerator.Color.RESET);
+
+        sc.close();
+        System.exit(0);
+    }
 }

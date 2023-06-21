@@ -1,13 +1,18 @@
 package FrontEnd;
 
+import BusinessLayer.BarGenerator;
+
 public class FronEndCallbacks {
     private InputReader inputReader;
     private MessageCallback messageCallback;
+
+    private GameOverCallback gameOverCallback;
 
     public FronEndCallbacks(CLI cli)
     {
         inputReader = () -> cli.readLine();
         messageCallback = (String m) -> cli.displayMessage(m);
+        gameOverCallback = () -> cli.endGame();
     }
 
     public String readLine()

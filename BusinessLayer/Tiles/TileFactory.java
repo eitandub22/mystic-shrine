@@ -11,9 +11,7 @@ import BusinessLayer.Tiles.Units.Enemies.Monster;
 import BusinessLayer.Tiles.Units.Enemies.Trap;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
-import FrontEnd.FronEndCallbacks;
-import FrontEnd.InputReader;
-import FrontEnd.MessageCallback;
+import FrontEnd.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -91,10 +89,9 @@ public class TileFactory {
 		return selected;
     }
 
-    public void initializePlayer(Player selected, Position position){
-        selected.initialize(position, fronEndCallbacks, boardCallbacks);
+    public void initializePlayer(Player selected, Position position, GameOverCallback gameOverCallback){
+        selected.initialize(position, fronEndCallbacks, boardCallbacks, gameOverCallback);
     }
-
     public Empty produceEmpty(Position position){
         return new Empty(position.getX(), position.getY());
     }

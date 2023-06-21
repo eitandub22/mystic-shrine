@@ -25,7 +25,7 @@ public abstract class Enemy extends Unit{
     @Override
     public void onDeath(Player killer)
     {
-        boardCallbacks.swap(new Empty( position.getX(), position.getY()), boardCallbacks.dealWithDying(this));
+        boardCallbacks.dealWithDying(this);
         this.isDead = true;
         fronEndCallbacks.displayMessage(String.format("%s was slain!. %s gained %d exp", name, killer.getName(), getExpVal()));
         killer.addExp(expVal);

@@ -89,6 +89,8 @@ public class Board {
 
     public void swap(Tile t1, Tile t2)
     {
+        t1 = get(t1.getPosition().getX(), t1.getPosition().getY());
+        t2= get(t2.getPosition().getX(), t2.getPosition().getY());
         this.tiles.remove(t1);
         this.tiles.remove(t2);
 

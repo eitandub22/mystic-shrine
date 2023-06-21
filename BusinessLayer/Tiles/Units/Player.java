@@ -1,13 +1,20 @@
 package BusinessLayer.Tiles.Units;
 
 import BusinessLayer.BarGenerator;
+import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.BoardStuff.EnemiesInRange;
+import BusinessLayer.Position;
+import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Visitor;
+import FrontEnd.FronEndCallbacks;
+import FrontEnd.GameOverCallback;
 
 public abstract class Player extends Unit implements HeroicUnit{
     protected Integer xp;
     protected Integer lvl;
     protected static final char SPECIAL = 'e';
+
+    protected GameOverCallback gameOverCallback;
 
     protected Player(String name, int healthCapacity, int attack, int defense) {
         super('@', name, healthCapacity, attack, defense);
@@ -22,14 +29,19 @@ public abstract class Player extends Unit implements HeroicUnit{
     @Override
     public void onDeath(Enemy killer) {
         fronEndCallbacks.displayMessage(this.name + "was slain by " + killer.getName());
-        fronEndCallbacks.displayMessage("GAME OVER");
         tile = 'X';
-        System.exit(0);//change to deathcallback
+        gameOverCallback.endGame();
     }
     @Override
     public void onDeath(Player player)
     {
         ;
+    }
+
+    public void initialize(Position position, FronEndCallbacks fronEndCallbacks, BoardCallbacks boardCallbacks, GameOverCallback gameOverCallback)
+    {
+        super.initialize(position, fronEndCallbacks, boardCallbacks);
+        this.gameOverCallback = gameOverCallback;
     }
 
     @Override
@@ -40,15 +52,15 @@ public abstract class Player extends Unit implements HeroicUnit{
     @Override
     public void visit(Enemy e) {
         battle(e);
+        if(e.isDead())
+        {
+            boardCallbacks.swap(this, e);
+        }
     }
 
 
     public void levelUp(){
-        if(xp < lvl*50)
-        {
-            return;
-        }
-
+        fronEndCallbacks.displayMessage("LEVEL UP!");
         fronEndCallbacks.displayMessage("HP: " + hp.getPool() + " -> " + (hp.getPool()+gainedHP()));
         fronEndCallbacks.displayMessage("Atk: " + attack + " -> " + (attack+gainedAttack()));
         fronEndCallbacks.displayMessage("Defence: " + defense + " -> " + (defense+gainedDefence()));
@@ -77,7 +89,10 @@ public abstract class Player extends Unit implements HeroicUnit{
 
     public void addExp(int val){
         xp += val;
-        levelUp();
+        while(xp >= lvl*50)
+        {
+            levelUp();
+        }
     }
 
     @Override
@@ -117,6 +132,6 @@ public abstract class Player extends Unit implements HeroicUnit{
     @Override
     public String describe(){
 
-        return String.format(super.describe() + "\t\tLevel: %d\n\t\tExperience: %d/%d", lvl, xp, lvl*50);
+        return String.format(super.describe() + "   LvL: %d  XP: %d/%d", lvl, xp, lvl*50);
     }
 }

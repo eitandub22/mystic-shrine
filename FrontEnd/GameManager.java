@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.Board;
 import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Position;
@@ -14,6 +15,7 @@ public class GameManager {
     private Board board;
     private TileFactory tileFactory;
 
+    private int turn;
     private final char PLAYER = '@';
 
     private final char EMPTY = '.';
@@ -23,12 +25,16 @@ public class GameManager {
     private List<Dictionary<Position, Character>> levelsStrings;
 
     public FronEndCallbacks fronEndCallbacks;
+
+    private GameOverCallback gameOverCallback;
     private List<Board> boards;
     private int currLvl;
     private Player player;
 
-    public GameManager(String levelsDir, FronEndCallbacks fronEndCallbacks) throws IOException {
+    public GameManager(String levelsDir, FronEndCallbacks fronEndCallbacks, GameOverCallback gameOverCallback) throws IOException {
         List<File> Files = null;
+        turn = 1;
+        this.gameOverCallback = gameOverCallback;
         this.fronEndCallbacks = fronEndCallbacks;
         levelsStrings = new LinkedList<>();
         currLvl = 0;
@@ -62,7 +68,7 @@ public class GameManager {
         }
     }
 
-    public void createLevel(int i){
+    public void initLevel(int i){
         board = boards.get(i);
         Dictionary<Position, Character> currLevel = levelsStrings.get(i);
         Enumeration<Position> k = currLevel.keys();
@@ -70,7 +76,7 @@ public class GameManager {
             Position key = k.nextElement();
             switch (currLevel.get(key)){
                 case PLAYER:
-                    tileFactory.initializePlayer(player, key);
+                    tileFactory.initializePlayer(player, key, gameOverCallback);
                     board.add(player);
                     break;
                 case WALL:
@@ -84,7 +90,6 @@ public class GameManager {
                     break;
             }
         }
-        currLvl++;
     }
 
     public TileFactory getFactory() {
@@ -92,14 +97,26 @@ public class GameManager {
     }
 
     public void startGame() {
-        while(board.getPlayer().getHealth() > 0){
-            fronEndCallbacks.displayMessage(board.toString());
-            if(board.cleared()){
-                createLevel(currLvl);
+        while(currLvl < boards.size()){
+            fronEndCallbacks.displayMessage(boardString());
+            fronEndCallbacks.displayMessage("Turn: " + turn);
+            if(board.cleared() && currLvl < boards.size()){
+                currLvl++;
+                initLevel(currLvl);
             }
             board.tick();
+            turn++;
         }
+
+
+        fronEndCallbacks.displayMessage("YOU WIN!");
     }
+
+    public String boardString()
+    {
+        return board.toString();
+    }
+
 
     public void initPlayer(Player p){
         player = p;
