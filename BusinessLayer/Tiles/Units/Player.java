@@ -3,6 +3,7 @@ package BusinessLayer.Tiles.Units;
 import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.EnemiesInRange;
 import BusinessLayer.Visitor;
+import FrontEnd.MessageCallback;
 
 import java.util.Scanner;
 
@@ -20,12 +21,6 @@ public abstract class Player extends Unit implements HeroicUnit{
         lvl = 1;
         in = new Scanner(System.in);
     }
-
-    @Override
-    public void processStep() {
-
-    }
-
 
     @Override
     public void kill(Mortal victim)
@@ -62,16 +57,35 @@ public abstract class Player extends Unit implements HeroicUnit{
             return;
         }
 
+        messageCallback.send("HP: " + hp.getPool() + " -> " + hp.getPool()+gainedHP());
+        messageCallback.send("Atk: " + attack + " -> " + attack+gainedHP());
+        messageCallback.send("Defence: " + defense + " -> " + defense+gainedHP());
+
         xp -= 50*lvl;
         lvl++;
-        hp.updatePool(hp.getPool() + 10*lvl);
+        hp.updatePool(hp.getPool() + gainedHP());
         hp.addAmount(hp.getPool());
-        attack += 4*lvl;
-        defense += lvl;
+        attack += gainedAttack();
+        defense += gainedDefence();
     }
+
+    public int gainedAttack()
+    {
+        return 4*lvl;
+    }
+    public int gainedHP()
+    {
+        return 10*lvl;
+    }
+    public int gainedDefence()
+    {
+        return lvl;
+    }
+
 
     public void addExp(int val){
         xp += val;
+        levelUp();
     }
 
     @Override

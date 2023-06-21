@@ -46,6 +46,11 @@ public class Rogue extends Player {
     public void levelUp(){
         super.levelUp();
         energy.addAmount(MAX_AMOUNT);
-        attack += 3*lvl;
+    }
+
+    @Override
+    public int gainedAttack()
+    {
+        return super.gainedAttack() + 3*lvl;
     }
 }

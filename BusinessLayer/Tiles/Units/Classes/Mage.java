@@ -57,9 +57,21 @@ public class Mage extends Player {
 
     @Override
     public void levelUp(){
-        super.levelUp();
-        mana.updatePool(mana.getPool() + 25*lvl);
+        messageCallback.send("Mana: " + mana.getPool() + " -> " + mana.getPool() + gainedMana());
+        messageCallback.send("SpellPower: " + spellPow + " -> " + spellPow + gainedSpellPow());
+
+        mana.updatePool(mana.getPool() + gainedMana());
         mana.addAmount(mana.getPool()/4);
-        spellPow += 10*lvl;
+        spellPow += gainedSpellPow();
+        super.levelUp();
+    }
+
+    public int gainedMana()
+    {
+        return 25*lvl;
+    }
+    public int gainedSpellPow()
+    {
+        return 10*lvl;
     }
 }

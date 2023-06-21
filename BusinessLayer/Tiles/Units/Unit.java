@@ -19,6 +19,8 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     protected static final char DOWN = 's';
     protected static final char LEFT = 'a';
     protected static final char RIGHT = 'd';
+    protected static final char NOTHING = 'q';
+
 
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense){
         super(tile);
@@ -42,7 +44,7 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
 
     public void takeDmg(int atk, Unit attacker){
         int def = rollDefence();
-        int dmg = atk - def > 0 ? atk - def : 0;
+        int dmg = Math.max(atk - def, 0);
         this.hp.takeAmount(dmg);
         if(hp.getCurrAmount() <= 0)
         {
@@ -51,20 +53,11 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     }
 
     public int rollAttack(){
-        return (int)Math.random() * (getAttack() + 1);
+        return (int)(Math.random() * (getAttack() + 1));
     }
     public int rollDefence(){
-        return (int)Math.random() * (getDefense() + 1);
+        return (int)(Math.random() * (getDefense() + 1));
     }
-
-
-	// Should be automatically called once the unit finishes its turn
-    public abstract void processStep();
-	
-	// What happens when the unit dies
-    public abstract void onDeath(Player killer);
-    public abstract void onDeath(Enemy killer);
-    public abstract void kill(Mortal victim);
 
 	// This unit attempts to interact with another tile.
     public void interact(Tile tile){
@@ -105,7 +98,7 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
         return defense;
     }
 
-    protected void move(char direction)
+    protected boolean move(char direction)
     {
         switch (direction)
         {
@@ -121,7 +114,11 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
             case RIGHT:
                 interact(boardCallbacks.getTile(position.getX() + 1, position.getY()));
                 break;
+            case NOTHING:
+                break;
             default:
+                return false;
         }
+        return true;
     }
 }

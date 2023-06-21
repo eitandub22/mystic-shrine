@@ -35,10 +35,25 @@ public class Warrior extends Player {
     public void levelUp(){
         super.levelUp();
         cooldown.takeAmount(cooldown.getCurrAmount());
-        hp.updatePool(hp.getPool() + 5*lvl);
-        attack += 2*lvl;
-        defense += lvl;
     }
+
+    @Override
+    public int gainedAttack()
+    {
+        return super.gainedAttack() + 3*lvl;
+    }
+    @Override
+    public int gainedHP()
+    {
+        return super.gainedHP() + 5*lvl;
+    }
+    @Override
+    public int gainedDefence()
+    {
+        return super.gainedDefence() + lvl;
+    }
+
+
 
     @Override
     public void onGameTick() {
