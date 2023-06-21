@@ -53,4 +53,9 @@ public class Rogue extends Player {
     {
         return super.gainedAttack() + 3*lvl;
     }
+
+    @Override
+    public String describe(){
+        return String.format(super.describe() + "\t\tEnergy: %d/%d", energy.getCurrAmount(), energy.getPool());
+    }
 }
