@@ -56,7 +56,10 @@ public class Warrior extends Player {
         return super.gainedDefence() + lvl;
     }
 
-
+    @Override
+    public String describe(){
+        return String.format(super.describe() + "\t\tCooldown: %d/%d", cooldown.getCurrAmount(), cooldown.getPool());
+    }
 
     @Override
     public void onGameTick() {

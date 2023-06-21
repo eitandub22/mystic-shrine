@@ -36,7 +36,7 @@ public class Mage extends Player {
             int hits = 0;
             Random rand = new Random();
             List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, range);
-            while(hits < hitsCount && !enemyList.isEmpty()){
+            while(hits < hitsCount && !enemyList.isEmpty() && !enemiesGone(enemyList)){
                 Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
                 randomEnemy.takeDmg(spellPow, this);
                 hits++;
@@ -44,7 +44,7 @@ public class Mage extends Player {
         }
         else
         {
-            this.fronEndCallbacks.displayMessage(BarGenerator.Color.RED + "Out of Mana!" + BarGenerator.Color.RESET);
+            this.fronEndCallbacks.displayMessage(BarGenerator.Color.RED + "not enough Mana!" + BarGenerator.Color.RESET);
         }
     }
 
@@ -72,5 +72,17 @@ public class Mage extends Player {
     public int gainedSpellPow()
     {
         return 10*lvl;
+    }
+
+    @Override
+    public String describe(){
+        return String.format(super.describe() + "\t\tMana: %d/%d\t\tSpell Power: %d", mana.getCurrAmount(), mana.getPool(), spellPow);
+    }
+
+    private boolean enemiesGone(List<Enemy> enemyList){
+        for (Enemy e: enemyList) {
+            if(!e.isDead()) return false;
+        }
+        return true;
     }
 }

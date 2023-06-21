@@ -41,6 +41,7 @@ public class CLI {
             line = sc.nextLine();
             i = line.length() > 0 ? line.charAt(0) : 0;
         }while(!isValid(i));
+
         Player p = tileFactory.producePlayer(Character.getNumericValue(i) - 1);
         gameManager.initPlayer(p);
         gameManager.initLevel(0);
