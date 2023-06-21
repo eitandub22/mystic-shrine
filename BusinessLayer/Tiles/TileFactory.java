@@ -11,6 +11,7 @@ import BusinessLayer.Tiles.Units.Enemies.Monster;
 import BusinessLayer.Tiles.Units.Enemies.Trap;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
+import FrontEnd.FronEndCallbacks;
 import FrontEnd.InputReader;
 import FrontEnd.MessageCallback;
 
@@ -27,14 +28,14 @@ public class TileFactory {
     private Player selected;
 
     private BoardCallbacks boardCallbacks;
-    private MessageCallback messageCallback;
+    private FronEndCallbacks fronEndCallbacks;
 
-    public TileFactory(BoardCallbacks boardCallbacks, MessageCallback messageCallback){
+    public TileFactory(BoardCallbacks boardCallbacks, FronEndCallbacks fronEndCallbacks){
         playersList = initPlayers();
         enemiesMap = initEnemies();
 
         this.boardCallbacks = boardCallbacks;
-        this.messageCallback = messageCallback;
+        this.fronEndCallbacks = fronEndCallbacks;
     }
 
     private Map<Character, Supplier<Enemy>> initEnemies() {
@@ -81,7 +82,7 @@ public class TileFactory {
     public Enemy produceEnemy(char tile, Position position) {
         Enemy newEnm = this.enemiesMap.get(tile).get();
         newEnm.setPosition(position);
-        newEnm.initialize(position, messageCallback, boardCallbacks);
+        newEnm.initialize(position, fronEndCallbacks, boardCallbacks);
         return newEnm;
     }
 
@@ -91,7 +92,7 @@ public class TileFactory {
     }
 
     public void initializePlayer(Player selected, Position position){
-        selected.initialize(position, messageCallback, boardCallbacks);
+        selected.initialize(position, fronEndCallbacks, boardCallbacks);
     }
 
     public Empty produceEmpty(Position position){

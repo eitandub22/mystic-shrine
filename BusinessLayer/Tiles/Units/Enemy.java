@@ -1,8 +1,6 @@
 package BusinessLayer.Tiles.Units;
 
 import BusinessLayer.BarGenerator;
-import BusinessLayer.BoardStuff.PlayerInRange;
-import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Visitor;
 
 public abstract class Enemy extends Unit{
@@ -26,11 +24,9 @@ public abstract class Enemy extends Unit{
     @Override
     public void onDeath(Player killer)
     {
-        Empty empty = new Empty(this.position.getX(), this.position.getY());
-        boardCallbacks.swap(this, empty);
-        boardCallbacks.swap(empty, killer);
+        boardCallbacks.swap(killer, boardCallbacks.dealWithDying(this));
         this.isDead = true;
-        messageCallback.send(String.format("%s was slain!. %s gained %d exp", name, killer.getName(), expVal));
+        fronEndCallbacks.displayMessage(String.format("%s was slain!. %s gained %d exp", name, killer.getName(), getExpVal()));
         killer.addExp(expVal);
     }
         @Override
@@ -42,8 +38,6 @@ public abstract class Enemy extends Unit{
     public void visit(Enemy e) {
         ;
     }
-
-    public abstract void onGameTick();
 
     @Override
     public void accept(Visitor visitor) {

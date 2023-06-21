@@ -3,16 +3,10 @@ package BusinessLayer.Tiles.Units;
 import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.EnemiesInRange;
 import BusinessLayer.Visitor;
-import FrontEnd.MessageCallback;
-import FrontEnd.InputReader;
-
-import java.util.Scanner;
 
 public abstract class Player extends Unit implements HeroicUnit{
     protected Integer xp;
     protected Integer lvl;
-    private InputReader inputReader;
-
     protected static final char SPECIAL = 'e';
 
     protected EnemiesInRange enemiesInRange;
@@ -21,11 +15,6 @@ public abstract class Player extends Unit implements HeroicUnit{
         xp = 0;
         lvl = 1;
     }
-
-    public void initializeReader(InputReader inputReader){
-        this.inputReader = inputReader;
-    }
-
     @Override
     public void kill(Mortal victim)
     {
@@ -33,8 +22,8 @@ public abstract class Player extends Unit implements HeroicUnit{
     }
     @Override
     public void onDeath(Enemy killer) {
-        messageCallback.send(this.name + "was slain by " + killer.getName());
-        messageCallback.send("GAME OVER");
+        fronEndCallbacks.displayMessage(this.name + "was slain by " + killer.getName());
+        fronEndCallbacks.displayMessage("GAME OVER");
         tile = 'X';
         System.exit(0);//change to deathcallback
     }
@@ -61,9 +50,9 @@ public abstract class Player extends Unit implements HeroicUnit{
             return;
         }
 
-        messageCallback.send("HP: " + hp.getPool() + " -> " + hp.getPool()+gainedHP());
-        messageCallback.send("Atk: " + attack + " -> " + attack+gainedHP());
-        messageCallback.send("Defence: " + defense + " -> " + defense+gainedHP());
+        fronEndCallbacks.displayMessage("HP: " + hp.getPool() + " -> " + hp.getPool()+gainedHP());
+        fronEndCallbacks.displayMessage("Atk: " + attack + " -> " + attack+gainedHP());
+        fronEndCallbacks.displayMessage("Defence: " + defense + " -> " + defense+gainedHP());
 
         xp -= 50*lvl;
         lvl++;
@@ -101,15 +90,19 @@ public abstract class Player extends Unit implements HeroicUnit{
 
     public void onGameTick()
     {
-        messageCallback.send("Enter your move:");
-        char PlrMove = inputReader.read().charAt(0);
-        switch (PlrMove)
-        {
-            case SPECIAL:
-                castSpecial();
-                break;
-            default:
-                move(PlrMove);
+        char playerMove = 'a';
+        boolean moved = false;
+        while(!moved) {
+            fronEndCallbacks.displayMessage("Enter your move:");
+            playerMove = fronEndCallbacks.readLine().charAt(0);
+            switch (playerMove) {
+                case SPECIAL:
+                    castSpecial();
+                    moved = true;
+                    break;
+                default:
+                    moved = move(playerMove);
+            }
         }
     }
 

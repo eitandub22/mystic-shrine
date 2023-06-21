@@ -18,7 +18,7 @@ public class Board {
     private int width;
     private int height;
     private FindTreeSet<Tile> tiles;
-    private LinkedList<Enemy> enemies;//dead enemies will remain, use carefully
+    private LinkedList<Enemy> enemies;
     private Player player;
 
     public Board(int width, int height){
@@ -58,10 +58,13 @@ public class Board {
         return demiTile.getPosition().compareTo(toFind.getPosition()) == 0 ? toFind : null;
     }
 
-    public void remove(int x, int y) {
+    public Empty removeEnemy(Enemy toRemove) {
 
-        tiles.remove(new Empty(x, y));
-        tiles.add(new Empty(x, y));
+        this.enemies.remove(toRemove);
+        tiles.remove(toRemove);
+        Empty newEmpty = new Empty(toRemove.getPosition().getX(), toRemove.getPosition().getY());
+        tiles.add(newEmpty);
+        return newEmpty;
     }
 
     @Override

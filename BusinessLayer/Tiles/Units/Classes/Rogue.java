@@ -32,7 +32,7 @@ public class Rogue extends Player {
         }
         else
         {
-            this.messageCallback.send(BarGenerator.Color.RED + "Out of Energy!" + BarGenerator.Color.RESET);
+            this.fronEndCallbacks.displayMessage(BarGenerator.Color.RED + "Out of Energy!" + BarGenerator.Color.RESET);
         }
     }
 

@@ -5,6 +5,8 @@ import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Tiles.EnvironmentObjects.Wall;
 import BusinessLayer.Tiles.Tile;
+import FrontEnd.CLI;
+import FrontEnd.FronEndCallbacks;
 import FrontEnd.MessageCallback;
 
 public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
@@ -13,7 +15,7 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     protected int attack;
     protected int defense;
     protected BoardCallbacks boardCallbacks;
-    protected MessageCallback messageCallback;
+    protected FronEndCallbacks fronEndCallbacks;
 
     protected static final char UP = 'w';
     protected static final char DOWN = 's';
@@ -32,10 +34,10 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
         this.defense = defense;
     }
 
-    public void initialize(Position position, MessageCallback messageCallback, BoardCallbacks boardCallbacks){
+    public void initialize(Position position, FronEndCallbacks fronEndCallbacks, BoardCallbacks boardCallbacks){
         this.position = position;
         this.boardCallbacks = boardCallbacks;
-        this.messageCallback = messageCallback;
+        this.fronEndCallbacks = fronEndCallbacks;
     }
 
     protected void battle(Unit u){
@@ -67,13 +69,13 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     public void visit(Empty e){
 		boardCallbacks.swap(this, e);
     }
+    public void visit(Wall w){
+        ;
+    }
 
     public abstract void visit(Player p);
     public abstract void visit(Enemy e);
 
-    public void visit(Wall w){
-        ;
-    }
     public String describe() {
         return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
     }

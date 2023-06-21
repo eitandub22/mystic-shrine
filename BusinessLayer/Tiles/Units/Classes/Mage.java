@@ -39,13 +39,12 @@ public class Mage extends Player {
             while(hits < hitsCount && !enemyList.isEmpty()){
                 Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
                 randomEnemy.takeDmg(spellPow, this);
-                if(randomEnemy.isDead()) enemyList.remove(randomEnemy);
                 hits++;
             }
         }
         else
         {
-            this.messageCallback.send(BarGenerator.Color.RED + "Out of Mana!" + BarGenerator.Color.RESET);
+            this.fronEndCallbacks.displayMessage(BarGenerator.Color.RED + "Out of Mana!" + BarGenerator.Color.RESET);
         }
     }
 
@@ -57,8 +56,8 @@ public class Mage extends Player {
 
     @Override
     public void levelUp(){
-        messageCallback.send("Mana: " + mana.getPool() + " -> " + mana.getPool() + gainedMana());
-        messageCallback.send("SpellPower: " + spellPow + " -> " + spellPow + gainedSpellPow());
+        fronEndCallbacks.displayMessage("Mana: " + mana.getPool() + " -> " + mana.getPool() + gainedMana());
+        fronEndCallbacks.displayMessage("SpellPower: " + spellPow + " -> " + spellPow + gainedSpellPow());
 
         mana.updatePool(mana.getPool() + gainedMana());
         mana.addAmount(mana.getPool()/4);

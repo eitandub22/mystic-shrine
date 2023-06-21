@@ -22,14 +22,14 @@ public class GameManager {
 
     private List<Dictionary<Position, Character>> levelsStrings;
 
-    public MessageCallback m;
+    public FronEndCallbacks fronEndCallbacks;
     private List<Board> boards;
     private int currLvl;
     private Player player;
 
-    public GameManager(String levelsDir, MessageCallback m) throws IOException {
+    public GameManager(String levelsDir, FronEndCallbacks fronEndCallbacks) throws IOException {
         List<File> Files = null;
-        this.m = m;
+        this.fronEndCallbacks = fronEndCallbacks;
         levelsStrings = new LinkedList<>();
         currLvl = 0;
         boards = new LinkedList<>();
@@ -54,7 +54,7 @@ public class GameManager {
                 width = 0;
             }
             board = boards.get(currLvl);
-            tileFactory = new TileFactory(new BoardCallbacks(board), m);
+            tileFactory = new TileFactory(new BoardCallbacks(board), fronEndCallbacks);
         }
         else {
             System.err.println("Invalid arguments count:" + levels.length);
@@ -93,7 +93,7 @@ public class GameManager {
 
     public void startGame() {
         while(board.getPlayer().getHealth() > 0){
-            m.send(board.toString());
+            fronEndCallbacks.displayMessage(board.toString());
             if(board.cleared()){
                 createLevel(currLvl);
             }

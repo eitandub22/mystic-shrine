@@ -17,28 +17,35 @@ public class CLI {
     private Scanner sc;
 
     public CLI(String levelsDir) throws IOException {
-        m = (String message) -> displayMessage(message);
-        r = () -> readLine();
-        gameManager = new GameManager(levelsDir, m);
+        m = this::displayMessage;
+        r = this::readLine;
+        gameManager = new GameManager(levelsDir, new FronEndCallbacks(this));
         sc = new Scanner(System.in);
         tileFactory = gameManager.getFactory();
     }
 
-    private void displayMessage(String m) {
+    public void displayMessage(String m) {
         System.out.println(m);
     }
-    private String readLine(){
-        return sc.nextLine();
+    public String readLine(){
+        try {
+            return sc.nextLine();
+        }
+        catch (Exception e)
+        {
+            return "E";
+        }
     }
     public void getPlayer(){
         tileFactory.showPlayers(m);
-        char i;
+        char i = 0;
+        String line = "";
         do {
             System.out.print("Select a player: ");
-            i = sc.nextLine().charAt(0);
+            line = sc.nextLine();
+            i = line.length() > 0 ? line.charAt(0) : 0;
         }while(!isValid(i));
         Player p = tileFactory.producePlayer(Character.getNumericValue(i));
-        p.initializeReader(r);
         gameManager.initPlayer(p);
         gameManager.createLevel(0);
         gameManager.startGame();

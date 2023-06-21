@@ -27,7 +27,7 @@ public class Warrior extends Player {
         }
         else
         {
-            this.messageCallback.send(BarGenerator.Color.RED + "Avenger’s Shield is on cooldown!" + BarGenerator.Color.RESET);
+            this.fronEndCallbacks.displayMessage(BarGenerator.Color.RED + "Avenger’s Shield is on cooldown!" + BarGenerator.Color.RESET);
         }
     }
 
