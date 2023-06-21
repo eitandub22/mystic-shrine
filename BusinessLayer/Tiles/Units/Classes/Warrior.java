@@ -13,17 +13,20 @@ public class Warrior extends Player {
     public Warrior(String name, int healthCapacity, int attack, int defense, Integer cooldown) {
         super(name, healthCapacity, attack, defense);
         this.cooldown = new Resource(cooldown);
+        this.cooldown.addAmount(cooldown);
     }
 
     @Override
     public void castSpecial() {
-        if(cooldown.getCurrAmount() == 0){
-            cooldown.addAmount(cooldown.getPool());
+        if(cooldown.getCurrAmount() == cooldown.getPool()){
+            cooldown.takeAmount(cooldown.getPool());
             hp.addAmount(10*defense);
-            List<Enemy> enemyList = enemiesInRange.get(this, 3);
-            Random rand = new Random();
-            Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
-            randomEnemy.takeDmg(hp.getPool()/10, this);
+            List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, 3);
+            if(enemyList.size() > 0) {
+                Random rand = new Random();
+                Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
+                randomEnemy.takeDmg(hp.getPool() / 10, this);
+            }
         }
         else
         {
@@ -34,7 +37,7 @@ public class Warrior extends Player {
     @Override
     public void levelUp(){
         super.levelUp();
-        cooldown.takeAmount(cooldown.getCurrAmount());
+        cooldown.addAmount(cooldown.getPool());
     }
 
     @Override
@@ -57,7 +60,7 @@ public class Warrior extends Player {
 
     @Override
     public void onGameTick() {
-        cooldown.addAmount( -1);
+        cooldown.addAmount( 1);
         super.onGameTick();
     }
 }

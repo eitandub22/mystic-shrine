@@ -9,7 +9,6 @@ public abstract class Player extends Unit implements HeroicUnit{
     protected Integer lvl;
     protected static final char SPECIAL = 'e';
 
-    protected EnemiesInRange enemiesInRange;
     protected Player(String name, int healthCapacity, int attack, int defense) {
         super('@', name, healthCapacity, attack, defense);
         xp = 0;
@@ -90,11 +89,13 @@ public abstract class Player extends Unit implements HeroicUnit{
 
     public void onGameTick()
     {
-        char playerMove = 'a';
+        char playerMove = 'E';
         boolean moved = false;
+        String line = "";
         while(!moved) {
             fronEndCallbacks.displayMessage("Enter your move:");
-            playerMove = fronEndCallbacks.readLine().charAt(0);
+            line = fronEndCallbacks.readLine();
+            playerMove = line.length() > 0 ? line.charAt(0) : 'E';
             switch (playerMove) {
                 case SPECIAL:
                     castSpecial();

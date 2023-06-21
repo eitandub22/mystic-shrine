@@ -35,7 +35,7 @@ public class Mage extends Player {
             mana.takeAmount(cost);
             int hits = 0;
             Random rand = new Random();
-            List<Enemy> enemyList = enemiesInRange.get(this, range);
+            List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, range);
             while(hits < hitsCount && !enemyList.isEmpty()){
                 Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
                 randomEnemy.takeDmg(spellPow, this);

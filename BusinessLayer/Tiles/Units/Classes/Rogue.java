@@ -25,7 +25,7 @@ public class Rogue extends Player {
     public void castSpecial() {
         if(energy.getCurrAmount() >= cost){
             energy.takeAmount(cost);
-            List<Enemy> enemyList = enemiesInRange.get(this, 2);
+            List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, 2);
             for (Enemy enemy: enemyList) {
                 enemy.takeDmg(attack, this);
             }

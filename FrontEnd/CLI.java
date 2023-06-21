@@ -15,6 +15,7 @@ public class CLI {
 
     private TileFactory tileFactory;
     private Scanner sc;
+    public static final char ERROR = 'E';
 
     public CLI(String levelsDir) throws IOException {
         m = this::displayMessage;
@@ -33,7 +34,7 @@ public class CLI {
         }
         catch (Exception e)
         {
-            return "E";
+            return "" + ERROR;
         }
     }
     public void getPlayer(){

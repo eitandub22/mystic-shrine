@@ -39,6 +39,10 @@ public class BoardCallbacks {
         return playerInRange.get(start, range);
     }
 
+    public List<Enemy> getEnemiesInRange(Tile start, int range)
+    {
+        return enemiesInRange.get(start, range);
+    }
     public Empty dealWithDying(Enemy dead)
     {
         return onDeathCallback.dealWith(dead);
