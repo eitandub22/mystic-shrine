@@ -39,13 +39,14 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     }
 
     protected void battle(Unit u){
-        u.takeDmg(rollAttack(), u);
+        u.takeDmg(rollAttack(), this);
     }
 
     public void takeDmg(int atk, Unit attacker){
         int def = rollDefence();
         int dmg = Math.max(atk - def, 0);
         this.hp.takeAmount(dmg);
+        messageCallback.send(attacker.getName() + " attacked " + this.getName() + " and dealt " + dmg);
         if(hp.getCurrAmount() <= 0)
         {
             attacker.kill(this);
