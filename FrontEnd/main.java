@@ -8,7 +8,6 @@ public class main {
         GameManager gameManager = new GameManager(args[0], 1);
         gameManager.createLevel(0, 1);
         Board board = gameManager.getBoard();
-        System.out.println(board.toString());
     }
 
 }

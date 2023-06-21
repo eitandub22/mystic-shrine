@@ -14,7 +14,7 @@ public class Trap extends Enemy {
         this.visTime = visTime;
         this.invisTime = invisTime;
         ticks = 0;
-        isVisible = false;
+        isVisible = true;
     }
 
     @Override

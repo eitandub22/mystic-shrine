@@ -1,7 +1,5 @@
 package FrontEnd;
 
-public class MessageCallback {
-    public void send(String message) {
-        ;
-    }
+public interface MessageCallback {
+    public void send(String message);
 }
