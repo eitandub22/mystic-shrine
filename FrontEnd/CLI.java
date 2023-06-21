@@ -29,13 +29,7 @@ public class CLI {
         System.out.println(m);
     }
     public String readLine(){
-        try {
-            return sc.nextLine();
-        }
-        catch (Exception e)
-        {
-            return "" + ERROR;
-        }
+        return sc.nextLine();
     }
     public void getPlayer(){
         tileFactory.showPlayers(m);
