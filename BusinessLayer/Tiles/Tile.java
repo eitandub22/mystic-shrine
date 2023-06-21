@@ -37,6 +37,4 @@ public abstract class Tile implements Visited {
     public String toString(){
         return String.valueOf(tile);
     }
-
-    public abstract void onGameTick();
 }
