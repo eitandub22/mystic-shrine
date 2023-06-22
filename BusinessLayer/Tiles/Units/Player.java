@@ -112,8 +112,8 @@ public abstract class Player extends Unit implements HeroicUnit{
         char playerMove = 'E';
         boolean moved = false;
         String line = "";
+        fronEndCallbacks.displayMessage("Awaiting your move:");
         while(!moved) {
-            fronEndCallbacks.displayMessage("Enter your move:");
             line = fronEndCallbacks.readLine();
             playerMove = line.length() > 0 ? line.charAt(0) : 'E';
             switch (playerMove) {

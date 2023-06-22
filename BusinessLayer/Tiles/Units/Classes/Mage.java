@@ -36,6 +36,7 @@ public class Mage extends Player {
             int hits = 0;
             Random rand = new Random();
             List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, range);
+            fronEndCallbacks.displayMessage("Hail Storm! deal " + spellPow + " dmg per hit");
             while(hits < hitsCount && !enemyList.isEmpty() && !enemiesGone(enemyList)){
                 Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
                 randomEnemy.takeDmg(spellPow, this);

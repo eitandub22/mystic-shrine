@@ -16,6 +16,7 @@ public class CLI {
 
     private TileFactory tileFactory;
     private Scanner sc;
+    private FrameContrller frameContrller;
     public static final char ERROR = 'E';
 
     public CLI(String levelsDir) throws IOException {
@@ -24,13 +25,14 @@ public class CLI {
         gameManager = new GameManager(levelsDir, new FronEndCallbacks(this), this::endGame);
         sc = new Scanner(System.in);
         tileFactory = gameManager.getFactory();
+        frameContrller = new FrameContrller();
     }
 
     public void displayMessage(String m) {
         System.out.println(m);
     }
     public String readLine(){
-        return sc.nextLine();
+        return "" + frameContrller.readBuffer();
     }
     public void getPlayer(){
         tileFactory.showPlayers(m);
