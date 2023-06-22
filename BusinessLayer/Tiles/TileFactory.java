@@ -89,7 +89,7 @@ public class TileFactory {
 		return selected;
     }
 
-    public void initializePlayer(Player selected, Position position, GameOverCallback gameOverCallback){
+    public void initializePlayer(Player selected, Position position, BoardCallbacks boardCallbacks, GameOverCallback gameOverCallback){
         selected.initialize(position, fronEndCallbacks, boardCallbacks, gameOverCallback);
     }
     public Empty produceEmpty(Position position){

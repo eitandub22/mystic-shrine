@@ -76,7 +76,7 @@ public class GameManager {
             Position key = k.nextElement();
             switch (currLevel.get(key)){
                 case PLAYER:
-                    tileFactory.initializePlayer(player, key, gameOverCallback);
+                    tileFactory.initializePlayer(player, key, new BoardCallbacks(board), gameOverCallback);
                     board.add(player);
                     break;
                 case WALL:
