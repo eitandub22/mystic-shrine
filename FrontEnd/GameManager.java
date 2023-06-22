@@ -71,12 +71,14 @@ public class GameManager {
     public void initLevel(int i){
         board = boards.get(i);
         Dictionary<Position, Character> currLevel = levelsStrings.get(i);
+        BoardCallbacks boardCallbacks = new BoardCallbacks(board);
+        tileFactory = new TileFactory(boardCallbacks, fronEndCallbacks);
         Enumeration<Position> k = currLevel.keys();
         while (k.hasMoreElements()) {
             Position key = k.nextElement();
             switch (currLevel.get(key)){
                 case PLAYER:
-                    tileFactory.initializePlayer(player, key, new BoardCallbacks(board), gameOverCallback);
+                    tileFactory.initializePlayer(player, key, boardCallbacks, gameOverCallback);
                     board.add(player);
                     break;
                 case WALL:
@@ -100,9 +102,11 @@ public class GameManager {
         while(currLvl < boards.size()){
             fronEndCallbacks.displayMessage(boardString());
             fronEndCallbacks.displayMessage("Turn: " + turn);
-            if(board.cleared() && currLvl < boards.size()){
+            if(board.cleared()){
                 currLvl++;
-                initLevel(currLvl);
+                if(currLvl < boards.size()){
+                    initLevel(currLvl);
+                }
             }
             board.tick();
             turn++;

@@ -24,7 +24,6 @@ public class TileFactory {
     private List<Supplier<Player>> playersList;
     private Map<Character, Supplier<Enemy>> enemiesMap;
     private Player selected;
-
     private BoardCallbacks boardCallbacks;
     private FronEndCallbacks fronEndCallbacks;
 
