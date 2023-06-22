@@ -5,9 +5,7 @@ import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Tiles.EnvironmentObjects.Wall;
 import BusinessLayer.Tiles.Tile;
-import FrontEnd.CLI;
 import FrontEnd.FronEndCallbacks;
-import FrontEnd.MessageCallback;
 
 public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     protected String name;
