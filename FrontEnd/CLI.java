@@ -62,8 +62,13 @@ public class CLI {
     {
         displayMessage(gameManager.boardString());
         displayMessage(BarGenerator.Color.RED + "YOU DIED" + BarGenerator.Color.RESET);
+        close();
+    }
 
+    public void close()
+    {
         sc.close();
+        frameContrller.dispose();
         System.exit(0);
     }
 }

@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="mystic-shrine:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/mystic_shrine_jar</output-path>
+    <root id="archive" name="mystic-shrine.jar">
+      <element id="module-output" name="mystic-shrine" />
+      <element id="module-source" name="mystic-shrine" />
+    </root>
+  </artifact>
+</component>
