@@ -1,8 +1,6 @@
 package FrontEnd;
 
 import BusinessLayer.BarGenerator;
-import BusinessLayer.BoardStuff.BoardCallbacks;
-import BusinessLayer.Tiles.Tile;
 import BusinessLayer.Tiles.TileFactory;
 import BusinessLayer.Tiles.Units.Player;
 

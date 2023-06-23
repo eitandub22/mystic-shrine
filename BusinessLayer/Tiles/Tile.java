@@ -2,7 +2,6 @@ package BusinessLayer.Tiles;
 
 import BusinessLayer.Position;
 import BusinessLayer.Visited;
-import BusinessLayer.Visitor;
 
 public abstract class Tile implements Visited {
     protected char tile;

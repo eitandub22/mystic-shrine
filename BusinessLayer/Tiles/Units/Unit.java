@@ -1,10 +1,13 @@
 package BusinessLayer.Tiles.Units;
 
-import BusinessLayer.*;
+import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.BoardCallbacks;
+import BusinessLayer.Position;
+import BusinessLayer.Resource;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Tiles.EnvironmentObjects.Wall;
 import BusinessLayer.Tiles.Tile;
+import BusinessLayer.Visitor;
 import FrontEnd.FronEndCallbacks;
 
 public abstract class Unit extends Tile implements Visitor, Killer, Mortal{

@@ -12,7 +12,9 @@ import BusinessLayer.Tiles.Units.Enemies.Monster;
 import BusinessLayer.Tiles.Units.Enemies.Trap;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
-import FrontEnd.*;
+import FrontEnd.FronEndCallbacks;
+import FrontEnd.GameOverCallback;
+import FrontEnd.MessageCallback;
 
 import java.util.Arrays;
 import java.util.List;

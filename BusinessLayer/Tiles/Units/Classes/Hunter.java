@@ -5,6 +5,7 @@ import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Hunter extends Player {
 
@@ -32,28 +33,20 @@ public class Hunter extends Player {
 
     @Override
     public void castSpecial() {
-        if (arrows.getCurrAmount() == 0) {
+        if (arrows.getCurrAmount() > 0) {
             arrows.takeAmount(1);
-            List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, range + 1);
+            fronEndCallbacks.displayMessage("Shoot! deal " + attack + " dmg");
+            List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, range + 1).stream().
+                    sorted((Enemy e1, Enemy e2) -> (int)(e1.getPosition().distance(position)-e2.getPosition().distance(position))).
+                    collect(Collectors.toList());
             if(enemyList.size() == 0) return;
-            int minRange = Integer.MAX_VALUE;
-            Enemy closest = null;
-            for (Enemy e: enemyList) {
-                int currDistance = (int) this.position.distance(e.getPosition());
-                if(currDistance < minRange){
-                    minRange = currDistance;
-                    closest = e;
-                }
-            }
-            closest.takeDmg(attack, this);
+            enemyList.get(0).takeDmg(attack, this);
         }
 
     }
 
     @Override
     public void levelUp(){
-        fronEndCallbacks.displayMessage("Arrows: " + arrows + " -> " + (arrows.getPool() + gainedArrows()));
-
         arrows.updatePool(arrows.getPool() + gainedArrows());
         arrows.addAmount(gainedArrows());
         attack += gainedAttack();

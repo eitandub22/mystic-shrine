@@ -1,7 +1,6 @@
 package BusinessLayer.Tiles.Units;
 
 import BusinessLayer.BarGenerator;
-import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Visitor;
 
 public abstract class Enemy extends Unit{

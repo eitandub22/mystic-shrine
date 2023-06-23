@@ -1,7 +1,5 @@
 package FrontEnd;
 
-import BusinessLayer.BarGenerator;
-
 public class FronEndCallbacks {
     private InputReader inputReader;
     private MessageCallback messageCallback;

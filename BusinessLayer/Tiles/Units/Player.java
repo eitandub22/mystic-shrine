@@ -2,9 +2,7 @@ package BusinessLayer.Tiles.Units;
 
 import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.BoardCallbacks;
-import BusinessLayer.BoardStuff.EnemiesInRange;
 import BusinessLayer.Position;
-import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Visitor;
 import FrontEnd.FronEndCallbacks;
 import FrontEnd.GameOverCallback;

@@ -1,6 +1,5 @@
 package FrontEnd;
 
-import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.Board;
 import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Position;
