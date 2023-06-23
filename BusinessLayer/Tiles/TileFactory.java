@@ -11,6 +11,7 @@ import BusinessLayer.Tiles.Units.Classes.Warrior;
 import BusinessLayer.Tiles.Units.Enemies.Monster;
 import BusinessLayer.Tiles.Units.Enemies.Trap;
 import BusinessLayer.Tiles.Units.Enemy;
+import BusinessLayer.Tiles.Units.Enemies.Boss;
 import BusinessLayer.Tiles.Units.Player;
 import FrontEnd.FronEndCallbacks;
 import FrontEnd.GameOverCallback;
@@ -47,18 +48,18 @@ public class TileFactory {
                 () -> new Monster('b', "Bear-Wright", 1000, 75, 30, 250,  4),
                 () -> new Monster('g', "Giant-Wright",1500, 100, 40,500,   5),
                 () -> new Monster('w', "White Walker", 2000, 150, 50, 1000, 6),
-//                () -> new Boss('M', "The Mountain", 1000, 60, 25,  500, 6, 5),
-//                () -> new Boss('C', "Queen Cersei", 100, 10, 10,1000, 1, 8),
-//                () -> new Boss('K', "Night's King", 5000, 300, 150, 5000, 8, 3),
-                () -> new Monster('M', "The Mountain", 1000, 60, 25,  500, 6),
+                () -> new Boss('M', "The Mountain", 1000, 60, 25,  500, 6, 5),
+                () -> new Boss('C', "Queen Cersei", 100, 10, 10,1000, 1, 8),
+                () -> new Boss('K', "Night's King", 5000, 300, 150, 5000, 8, 3),
+                /*() -> new Monster('M', "The Mountain", 1000, 60, 25,  500, 6),
                 () -> new Monster('C', "Queen Cersei", 100, 10, 10,1000, 1),
-                () -> new Monster('K', "Night's King", 5000, 300, 150, 5000, 8),
+                () -> new Monster('K', "Night's King", 5000, 300, 150, 5000, 8),*/
                 () -> new Trap('B', "Bonus Trap", 1, 1, 1, 250,  1, 10),
                 () -> new Trap('Q', "Queen's Trap", 250, 50, 10, 100, 3, 10),
                 () -> new Trap('D', "Death Trap", 500, 100, 20, 250, 1, 10)
         );
 
-        return enemies.stream().collect(Collectors.toMap(s -> s.get().getTile(), Function.identity()));
+            return enemies.stream().collect(Collectors.toMap(s -> s.get().getTile(), Function.identity()));
     }
 
     private List<Supplier<Player>> initPlayers() {
