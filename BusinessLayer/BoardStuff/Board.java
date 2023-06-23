@@ -1,17 +1,13 @@
 package BusinessLayer.BoardStuff;
 
 import BusinessLayer.DataStructs.FindTreeSet;
-import BusinessLayer.DataStructs.TilePosComperator;
 import BusinessLayer.Position;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
 import BusinessLayer.Tiles.Tile;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Board {
@@ -22,7 +18,7 @@ public class Board {
     private Player player;
 
     public Board(int width, int height){
-        tiles = new FindTreeSet<>(new TilePosComperator());
+        tiles = new FindTreeSet<>(Comparator.comparing(Tile::getPosition));
         enemies = new LinkedList<>();
         this.height = height;
         this.width = width;
@@ -74,7 +70,7 @@ public class Board {
         for (Tile t: tiles) {
             sorted.add(t);
         }
-        Collections.sort(sorted, new TilePosComperator());
+        Collections.sort(sorted, tiles.spliterator().getComparator());
         int counter = 0;
         for (Tile t: sorted) {
             if(counter == width){
@@ -108,9 +104,7 @@ public class Board {
         player.onGameTick();
         for(Enemy enemy : enemies)
         {
-            if(!enemy.isDead()) {
-                enemy.onGameTick();
-            }
+            enemy.onGameTick();
         }
     }
     public Player getPlayer() {
@@ -118,10 +112,7 @@ public class Board {
     }
 
     public boolean cleared(){
-        for (Enemy e: enemies) {
-            if(!e.isDead()) return false;
-        }
-        return true;
+        return enemies.size() == 0;
     }
 
 }

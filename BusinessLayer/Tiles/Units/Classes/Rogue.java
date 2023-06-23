@@ -28,7 +28,7 @@ public class Rogue extends Player {
         if(energy.getCurrAmount() >= cost){
             energy.takeAmount(cost);
             List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, 2);
-            fronEndCallbacks.displayMessage("Fan Of Knives! deal " + attack + " dmg per hit");
+            fronEndCallbacks.displayMessage("Fan Of Knives! deal " + attack + " DMG per hit");
             for (Enemy enemy: enemyList) {
                 enemy.takeDmg(attack, this);
             }

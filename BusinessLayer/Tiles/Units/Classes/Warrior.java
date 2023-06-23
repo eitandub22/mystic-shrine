@@ -26,7 +26,7 @@ public class Warrior extends Player {
                 Random rand = new Random();
                 Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
                 int dmg = hp.getPool() / 10;
-                fronEndCallbacks.displayMessage("Avengers Shield! deal" + dmg + "DMG");
+                fronEndCallbacks.displayMessage("Avengers Shield! deal " + dmg + " DMG");
                 randomEnemy.takeDmg(dmg, this);
             }
         }

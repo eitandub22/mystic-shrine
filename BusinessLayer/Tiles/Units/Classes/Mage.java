@@ -36,10 +36,11 @@ public class Mage extends Player {
             int hits = 0;
             Random rand = new Random();
             List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, range);
-            fronEndCallbacks.displayMessage("Hail Storm! deal " + spellPow + " dmg per hit");
-            while(hits < hitsCount && !enemyList.isEmpty() && !enemiesGone(enemyList)){
+            fronEndCallbacks.displayMessage("Hail Storm! deal " + spellPow + " DMG per hit");
+            while(hits < hitsCount && !enemyList.isEmpty()){
                 Enemy randomEnemy = enemyList.get(rand.nextInt(enemyList.size()));
                 randomEnemy.takeDmg(spellPow, this);
+                if(randomEnemy.getHealth() == 0) enemyList.remove(randomEnemy);
                 hits++;
             }
         }
@@ -76,14 +77,7 @@ public class Mage extends Player {
     }
 
     @Override
-    public String describe(){
+    public String describe() {
         return String.format(super.describe() + "  Mana: %d/%d Spell Power: %d", mana.getCurrAmount(), mana.getPool(), spellPow);
-    }
-
-    private boolean enemiesGone(List<Enemy> enemyList){
-        for (Enemy e: enemyList) {
-            if(!e.isDead()) return false;
-        }
-        return true;
     }
 }

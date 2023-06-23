@@ -50,10 +50,7 @@ public abstract class Player extends Unit implements HeroicUnit{
     @Override
     public void visit(Enemy e) {
         battle(e);
-        if(e.isDead())
-        {
-            boardCallbacks.swap(this, e);
-        }
+        boardCallbacks.swap(this, e);
     }
 
 

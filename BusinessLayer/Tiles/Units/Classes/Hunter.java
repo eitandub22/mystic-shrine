@@ -35,7 +35,7 @@ public class Hunter extends Player {
     public void castSpecial() {
         if (arrows.getCurrAmount() > 0) {
             arrows.takeAmount(1);
-            fronEndCallbacks.displayMessage("Shoot! deal " + attack + " dmg");
+            fronEndCallbacks.displayMessage("Shoot! deal " + attack + " DMG");
             List<Enemy> enemyList = boardCallbacks.getEnemiesInRange(this, range + 1).stream().
                     sorted((Enemy e1, Enemy e2) -> (int)(e1.getPosition().distance(position)-e2.getPosition().distance(position))).
                     collect(Collectors.toList());
