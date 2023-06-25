@@ -9,7 +9,7 @@ import BusinessLayer.Tiles.Units.Player;
 import java.io.*;
 import java.util.*;
 
-public class GameManager {
+public class GameManager{
 
     private Board board;
     private TileFactory tileFactory;
