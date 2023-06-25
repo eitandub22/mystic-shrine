@@ -14,11 +14,11 @@ public class FrameContrller extends JFrame implements KeyListener {
 
     public FrameContrller()
     {
-        super("mystic-shrine controller");
+        super("MS-controller");
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-        this.label = new JLabel("Click on me, and input from here");
+        this.label = new JLabel("Focus me, than input");
         setSize(250, 100);
         setPreferredSize(new Dimension(250, 100));
         setResizable(false);

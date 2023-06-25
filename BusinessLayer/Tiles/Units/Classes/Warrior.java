@@ -5,6 +5,7 @@ import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -60,7 +61,11 @@ public class Warrior extends Player {
 
     @Override
     public String describe(){
-        return String.format(super.describe() + "  Cooldown: %d/%d", cooldown.getCurrAmount(), cooldown.getPool());
+        BarGenerator bg = new BarGenerator();
+        return String.format(super.describe() + "\n%s Cooldown: %d/%d",
+                bg.genBar(cooldown.getCurrAmount(), cooldown.getPool(), ' ', BarGenerator.Color.WHITE_BACKGROUND),
+                cooldown.getCurrAmount(),
+                cooldown.getPool());
     }
 
     @Override

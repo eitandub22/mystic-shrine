@@ -66,6 +66,10 @@ public class Rogue extends Player {
 
     @Override
     public String describe(){
-        return String.format(super.describe() + "  Energy: %d/%d", energy.getCurrAmount(), energy.getPool());
+        BarGenerator bg = new BarGenerator();
+        return String.format(super.describe() + "\n%s Energy: %d/%d",
+                bg.genBar(energy.getCurrAmount(), energy.getPool(), ' ', BarGenerator.Color.YELLOW_BACKGROUND),
+                energy.getCurrAmount(),
+                energy.getPool());
     }
 }

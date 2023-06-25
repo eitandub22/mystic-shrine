@@ -1,5 +1,6 @@
 package BusinessLayer.Tiles.Units.Classes;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.Resource;
 import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.Player;
@@ -69,6 +70,9 @@ public class Hunter extends Player {
 
     @Override
     public String describe(){
-        return String.format(super.describe() + "  Arrows: %d/%d", arrows.getCurrAmount(), arrows.getPool());
+        BarGenerator bg = new BarGenerator();
+        return String.format(super.describe() + "%s Arrows: %d/%d",
+                bg.genBar(arrows.getCurrAmount(), arrows.getPool(), '|', BarGenerator.Color.WHITE),
+                arrows.getCurrAmount(), arrows.getPool());
     }
 }

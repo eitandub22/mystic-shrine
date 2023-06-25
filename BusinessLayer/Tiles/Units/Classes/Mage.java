@@ -78,6 +78,10 @@ public class Mage extends Player {
 
     @Override
     public String describe() {
-        return String.format(super.describe() + "  Mana: %d/%d Spell Power: %d", mana.getCurrAmount(), mana.getPool(), spellPow);
+        BarGenerator bg = new BarGenerator();
+        return String.format(super.describe() + "\n%s Mana: %d/%d Spell Power: %d",
+                bg.genBar(mana.getCurrAmount(), mana.getPool(), ' ', BarGenerator.Color.BLUE_BACKGROUND),
+                mana.getCurrAmount(), mana.getPool(),
+                spellPow);
     }
 }

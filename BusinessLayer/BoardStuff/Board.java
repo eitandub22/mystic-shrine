@@ -1,6 +1,5 @@
 package BusinessLayer.BoardStuff;
 
-import BusinessLayer.DataStructs.FindTreeSet;
 import BusinessLayer.Position;
 import BusinessLayer.Tiles.EnvironmentObjects.Empty;
 import BusinessLayer.Tiles.Units.Enemy;
@@ -13,12 +12,12 @@ import java.util.stream.Collectors;
 public class Board {
     private int width;
     private int height;
-    private FindTreeSet<Tile> tiles;
+    private TreeSet<Tile> tiles;
     private LinkedList<Enemy> enemies;
     private Player player;
 
     public Board(int width, int height){
-        tiles = new FindTreeSet<>(Comparator.comparing(Tile::getPosition));
+        tiles = new TreeSet<>(Comparator.comparing(Tile::getPosition));
         enemies = new LinkedList<>();
         this.height = height;
         this.width = width;
@@ -50,7 +49,7 @@ public class Board {
 
     public Tile get(int x, int y){
         Empty demiTile = new Empty(x, y);
-        Tile toFind = this.tiles.find(demiTile);
+        Tile toFind = this.tiles.ceiling(demiTile);
         return demiTile.getPosition().compareTo(toFind.getPosition()) == 0 ? toFind : null;
     }
 

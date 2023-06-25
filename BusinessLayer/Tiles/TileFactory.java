@@ -106,7 +106,7 @@ public class TileFactory {
     public void showPlayers(MessageCallback m){
         int i = 1;
         for (Supplier<Player> p: playersList) {
-            m.send(i + " " + p.get().describe());
+            m.send(i + " " + p.get().describe() + "\n");
             i++;
         }
     }

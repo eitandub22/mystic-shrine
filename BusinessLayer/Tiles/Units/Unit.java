@@ -51,6 +51,10 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
         int atk = rollAttack();
         fronEndCallbacks.displayMessage(getName() + " Rolled " + atk + " ATTACK!");
         u.takeDmg(atk, this);
+        if(u.getHealth() <= 0)
+        {
+            boardCallbacks.swap(this, u);
+        }
     }
 
     public void takeDmg(int atk, Unit attacker){
@@ -87,7 +91,13 @@ public abstract class Unit extends Tile implements Visitor, Killer, Mortal{
     public abstract void visit(Enemy e);
 
     public String describe() {
-        return String.format("%s: \tHP: %s/%s  Atk: %d  Def: %d", getName(), getHealth(), hp.getPool(), getAttack(), getDefense());
+        BarGenerator bg = new BarGenerator();
+
+        return String.format("%s:\n%s HP: %s/%s  Atk: %d  Def: %d",
+                getName(),
+                bg.genBar(hp.getCurrAmount(), hp.getPool(), ' ', BarGenerator.Color.RED_BACKGROUND),
+                getHealth(), hp.getPool(),
+                getAttack(), getDefense());
     }
 
     public String getName()
