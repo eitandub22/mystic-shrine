@@ -6,8 +6,15 @@ import BusinessLayer.Position;
 import BusinessLayer.Tiles.TileFactory;
 import BusinessLayer.Tiles.Units.Player;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Dictionary;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Hashtable;
+import java.util.Enumeration;
 
 public class GameManager{
 
@@ -31,7 +38,6 @@ public class GameManager{
     private Player player;
 
     public GameManager(String levelsDir, FronEndCallbacks fronEndCallbacks, GameOverCallback gameOverCallback) throws IOException {
-        List<File> Files = null;
         turn = 1;
         this.gameOverCallback = gameOverCallback;
         this.fronEndCallbacks = fronEndCallbacks;

@@ -1,6 +1,5 @@
 package BusinessLayer.Tiles.Units.Enemies;
 
-import BusinessLayer.Tiles.Units.Enemy;
 import BusinessLayer.Tiles.Units.HeroicUnit;
 import BusinessLayer.Tiles.Units.Player;
 
