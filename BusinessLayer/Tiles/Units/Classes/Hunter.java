@@ -71,7 +71,7 @@ public class Hunter extends Player {
     @Override
     public String describe(){
         BarGenerator bg = new BarGenerator();
-        return String.format(super.describe() + "%s Arrows: %d/%d",
+        return String.format(super.describe() + "\n%s Arrows: %d/%d",
                 bg.genBar(arrows.getCurrAmount(), arrows.getPool(), '|', BarGenerator.Color.WHITE),
                 arrows.getCurrAmount(), arrows.getPool());
     }

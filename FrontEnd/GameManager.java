@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import BusinessLayer.BarGenerator;
 import BusinessLayer.BoardStuff.Board;
 import BusinessLayer.BoardStuff.BoardCallbacks;
 import BusinessLayer.Position;
@@ -118,7 +119,7 @@ public class GameManager{
         }
 
 
-        fronEndCallbacks.displayMessage("YOU WIN!");
+        fronEndCallbacks.displayMessage(BarGenerator.Color.YELLOW + "YOU WIN!" + BarGenerator.Color.RESET);
     }
 
     public String boardString()
